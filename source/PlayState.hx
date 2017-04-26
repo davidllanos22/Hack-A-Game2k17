@@ -93,6 +93,10 @@ class PlayState extends FlxState{
 					hitBulletZombie(cast(b,Bullet),cast(z,Zombie));
 					break;
 				}
+				if(b.x<0 || 1080<b.x || b.y<0 || 720<b.y){
+					b.kill();
+					bullets.remove(b);
+				}
 			}
 		}
 
