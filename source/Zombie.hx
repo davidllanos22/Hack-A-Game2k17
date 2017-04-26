@@ -13,12 +13,12 @@ class Zombie extends FlxSprite{
     public var ps:PlayState;
     public var tolerance:Float;
     public var damage:Float;
-    private var dPLayer:Float;
+    private var dPlayer:Float;
     private var xx:Float;
     private var yy:Float;
     private var player:Player;
 
-	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float, player:Player,damage:Float) {
+	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float,damage:Float) {
         super(x, y);
         setSize(16, 16);
         makeGraphic(16, 16, FlxColor.RED);
@@ -26,7 +26,7 @@ class Zombie extends FlxSprite{
         this.life = life;
         this.speed = speed;
         this.tolerance = tolerance;
-        this.player = ps.Player;
+        this.player = ps.player;
 
         /*loadGraphic(AssetPaths.sprites__png, true, 16, 16);
         animation.add("zombie", [0], 5);
@@ -40,22 +40,22 @@ class Zombie extends FlxSprite{
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
-        dPLayer = FlxMath.distanceBetween(this,ps.player);
-        movement(d,tolerance);
+        this.dPlayer = FlxMath.distanceBetween(this,player);
+        movement();
     }
     
     public function getHit(q:Float):Void{
         life-=q;
     }
 
-    private function movement(d:Float,tolerance:Float):Void{
+    private function movement():Void{
         
         var px = player.x;
         var py = player.y;
         var zx = this.x;
         var zy = this.y;
 
-        if(dPLayer<tolerance){
+        if(dPlayer<tolerance){
             xx = speed*( (px - zx)/ Math.sqrt( Math.pow(px - zx,2) + Math.pow(py - zy,2) ) );
             yy = speed*( (py - zy)/ Math.sqrt( Math.pow(px - zx,2) + Math.pow(py - zy,2) ) );
         }else{
