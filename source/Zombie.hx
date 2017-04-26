@@ -8,6 +8,7 @@ import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flixel.ui.FlxBar;
 import flixel.FlxG;
+import flixel.system.FlxSound;
 
 class Zombie extends FlxSprite{
     
@@ -25,6 +26,8 @@ class Zombie extends FlxSprite{
     public var attackWaitTime:Int;
     public var greenBar:FlxBar;
     private var maxlife:Float;
+    private var sndGrunt:FlxSound;
+    private var sndDeath:FlxSound;
 
     public static inline var WIDTHBAR = 16;
     public static inline var HEIGHBAR = 4;

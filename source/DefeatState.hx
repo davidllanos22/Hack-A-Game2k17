@@ -6,6 +6,7 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import flixel.system.FlxSound;
 
 class DefeatState extends FlxState{
 
@@ -22,6 +23,8 @@ class DefeatState extends FlxState{
 	}
 
 	override public function create():Void{
+
+		FlxG.sound.playMusic(AssetPaths.death__wav, 0.5, false);
 		_txtTitle = new FlxText (0, 20, 0, "GAME OVER", 32);
 		_txtTitle.alignment = CENTER;
 		_txtTitle.screenCenter(X);
@@ -48,10 +51,12 @@ class DefeatState extends FlxState{
 	}
 
 	private function clickPlay():Void{
+		FlxG.sound.playMusic(AssetPaths.battle__wav, 0.5, true);
 		FlxG.switchState (new PlayState());
 	}
 
 	private function clickMenu():Void{
+		FlxG.sound.playMusic(AssetPaths.menu__wav, 0.5, true);
 		FlxG.switchState (new MenuState());
 	}
 }

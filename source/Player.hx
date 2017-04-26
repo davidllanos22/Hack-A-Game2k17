@@ -8,6 +8,7 @@ import flixel.math.FlxPoint;
 import flixel.FlxG;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
+import flixel.system.FlxSound;
 
 class Player extends FlxSprite {
 	
@@ -26,6 +27,9 @@ class Player extends FlxSprite {
 	public var greenBar:FlxBar;
 	public var yellowBar:FlxBar;
 
+	private var sndHit:FlxSound;
+	private var sndShot:FlxSound;
+
 	public static inline var WIDTHBAR = 16;
 	public static inline var HEIGHBAR = 4;
 
@@ -39,6 +43,8 @@ class Player extends FlxSprite {
         animation.add("player_walk", [8,9,8,10], 8);
         animation.play("player_stand");
 
+        sndHit = FlxG.sound.load(AssetPaths.playerHurt__wav);
+        sndShot = FlxG.sound.load(AssetPaths.shoot__wav);
         setSize(12,12);
         offset.set(10,10);
 
@@ -147,11 +153,14 @@ class Player extends FlxSprite {
 	public function gunShoot():Void {
 		var shotOffset = FlxAngle.getCartesianCoords(Math.sqrt(281), angle - 220);
 		var bullet = new Bullet(x + shotOffset.x, y + shotOffset.y, angle - 90);
+		sndShot.play();
+
 		playState.bullets.add(bullet);
 	}
 
 	public function getHit(damage:Int){
 		life -= damage;
+		sndHit.play();
 		greenBar.value-= damage;
 	}
 }
