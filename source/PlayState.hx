@@ -106,7 +106,6 @@ class PlayState extends FlxState{
 		for(z in zombis){
 			for(b in bullets){
 				if(FlxG.pixelPerfectOverlap(b,z)){
-					trace("hit");
 					hitBulletZombie(cast(b,Bullet),cast(z,Zombie));
 					break;
 				}
@@ -119,7 +118,7 @@ class PlayState extends FlxState{
 
 		for(z in zombis){
 			for(o in obstacles){
-				if(FlxG.pixelPerfectOverlap(o,z)){
+				if(FlxMath.distanceBetween(z,o) < 55){
 					hitObstacleZombie(cast(o,Obstacle),cast(z,Zombie));
 					break;
 				}
@@ -146,7 +145,6 @@ class PlayState extends FlxState{
 	private function hitBulletZombie(b:Bullet,z:Zombie):Void{
 		bullets.remove(b);
 		b.kill();
-		trace("disparo colisiona");
 		z.getHit(b.damage);
 		if(z.life<=0){
 			zombis.remove(z);

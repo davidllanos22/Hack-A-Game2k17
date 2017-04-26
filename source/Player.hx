@@ -116,8 +116,7 @@ class Player extends FlxSprite {
 			x = x + (analog.acceleration.x * baseSpeed * speedMultiplier / 42);
 			y = y + (analog.acceleration.y * baseSpeed * speedMultiplier / 42);
 			if(FlxG.collide(this,playState.obstacles)){
-			trace("asdf");
-			velocity.set(0,0);
+				velocity.set(0,0);
 			}
 		}
 	}

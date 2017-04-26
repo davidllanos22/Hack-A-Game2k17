@@ -7,6 +7,7 @@ import flixel.math.FlxRandom;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flixel.ui.FlxBar;
+import flixel.FlxG;
 
 class Zombie extends FlxSprite{
     
@@ -89,8 +90,11 @@ class Zombie extends FlxSprite{
         }
 
         angle = getPosition().angleBetween(target.getPosition());
-
-        velocity = new FlxPoint(xx,yy);
+        if(FlxG.collide(this,ps.obstacles)){
+            velocity.set(0,0);
+        }else{
+            velocity = new FlxPoint(xx,yy);
+        }
 
         greenBar.x = this.x + 8;
         greenBar.y = this .y - 6;
