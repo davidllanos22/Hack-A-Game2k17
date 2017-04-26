@@ -15,6 +15,9 @@ class MenuState extends FlxState{
 		if (FlxG.sound.music == null){
 			FlxG.sound.playMusic(AssetPaths.menu__wav, 0.5, true);
 		}
+		var text = new flixel.text.FlxText(0, 0, 0, "ZombieCraft", 48);
+		text.screenCenter(X);
+		add(text);
 		_btnPlay = new FlxButton(0, 0, "Play", clickPlay);
 		_btnPlay.screenCenter();
 		_btnPlay.onUp.sound = FlxG.sound.load(AssetPaths.button__wav);
