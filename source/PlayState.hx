@@ -16,7 +16,11 @@ import flixel.math.FlxRandom;
 import flixel.util.FlxColor;
 import flixel.ui.FlxBar;
 import flixel.system.FlxSound;
+<<<<<<< Updated upstream
 import flixel.system.scaleModes.RatioScaleMode;
+=======
+import Inventory;
+>>>>>>> Stashed changes
 
 class PlayState extends FlxState{
 	public var text:FlxText;
@@ -36,6 +40,11 @@ class PlayState extends FlxState{
 	public var announcementText:FlxText;
 	public var greenBar:FlxBar;
 	public var yellowBar:FlxBar;
+<<<<<<< Updated upstream
+=======
+	public var inventory:Inventory;
+	
+>>>>>>> Stashed changes
 
 	private static inline var SPEED:Float = 2;
 
@@ -45,6 +54,7 @@ class PlayState extends FlxState{
 		analog = new FlxAnalog(60, FlxG.height - 30, 10, 0);
 		button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20);
 		button2 = new Button(FlxG.width - 50, FlxG.height - 90, 20);
+		inventory = new Inventory();
 
 		analog.scrollFactor.set(0,0);
 		button1.scrollFactor.set(0,0);
@@ -53,6 +63,8 @@ class PlayState extends FlxState{
 		analog.alpha = 0.5;
 		button1.alpha = 0.5;
 		button2.alpha = 0.5;
+		
+		inventory.addItem(Item.ALCOHOL);
 
 		FlxG.scaleMode = new RatioScaleMode(false);
 
