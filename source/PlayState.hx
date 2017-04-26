@@ -19,6 +19,7 @@ class PlayState extends FlxState{
 	private var zombis:FlxSpriteGroup;
 	private var obstacles:FlxSpriteGroup;
 	private var bullets:FlxSpriteGroup;
+	private var family:FlxSpriteGroup;
 
 	private static inline var SPEED:Float = 2;
 
