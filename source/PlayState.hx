@@ -11,6 +11,7 @@ import flixel.math.FlxPoint;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxCamera;
 import flixel.ui.FlxAnalog;
+import flixel.util.FlxTimer;
 
 class PlayState extends FlxState{
 	public var text:FlxText;
@@ -36,7 +37,7 @@ class PlayState extends FlxState{
 		zombis = new FlxSpriteGroup();
 		obstacles = new FlxSpriteGroup();
 		
-		bullets = new FlxSpriteGroup();
+		this.bullets = new FlxSpriteGroup();
 		family = new Family(0,0,10,1);
 		add(analog);
 		add(button1);
@@ -59,33 +60,30 @@ class PlayState extends FlxState{
 			}
 		}
 
-		for(z in zombis){
+		/*for(z in zombis){
 			for(b in bullets){
 				if(FlxG.pixelPerfectOverlap(b,z)){
-					hitBulletZombi(b,z);
+					hitBulletZombie(b,z);
 					break;
 				}
 			}
-		}
+		}*/
 
-		for(z in zombis){
+		/*for(z in zombis){
 			for(o in obstacles){
 				if(FlxG.pixelPerfectOverlap(o,z)){
 					hitObstacleZombie(o,z);
 					break;
 				}
 			}
-		}
-
-		FlxG.pixelPerfectOverlap(bullets,zombis,hitBulletZombi);
-		FlxG.pixelPerfectOverlap(obstacles,zombis,hitObstacleZombi);
+		}*/
 		/*t += 0.1;
 		position.add(SPEED, 0);
 		if(position.x > FlxG.camera.width) position.x = - 120;
 		text.setPosition(position.x, position.y + Math.cos(t) * 10);*/
 	}
 
-	private function hitBulletZombie(b:Bullet,z:Zombie){
+	private function hitBulletZombie(b:Bullet,z:Zombie):Void{
 		bullets.remove(b);
 		b.kill();
 
@@ -96,7 +94,7 @@ class PlayState extends FlxState{
 		}
 	}
 
-	private function hitObstacleZombie(o:Obstacle,z:Zombie){
+	/*private function hitObstacleZombie(o:Obstacle,z:Zombie):Void{
 		o.getHit(z.damage);
 		if(o.life<=0){
 			obstacles.remove(o);
@@ -111,20 +109,20 @@ class PlayState extends FlxState{
 				z.kill();
 			}
 		}
-	}
+	}*/
 
-	private function hitPlayerZombi(z:Zombie){
+	/*private function hitPlayerZombi(z:Zombie):Void{
 		player.getHit(z.damage);
 		if(player.life<=0){
 			FlxG.switchState(new DefeatState());
 		}
-	}
+	}*/
 
-	private function spawnZombie(x:Float,y:Float):Void{
+	/*private function spawnZombie(x:Float,y:Float):Void{
 		var x = FlxG.width/2;
 		var y = FlxG.height/2;
 
-		timer = new FlxTimer().start(t, function myCallback(Timer:FlxTimer):Void{
+		var timer = new FlxTimer().start(t, function myCallback(Timer:FlxTimer):Void{
 			var random = new FlxRandom();
 			var op = random.int(0, 3);
 			switch op{
@@ -135,14 +133,14 @@ class PlayState extends FlxState{
 			}
 			
 		}, 0);
-	}
+	}*/
 
 	private function spawnObject(x:Float,y:Float):Void{
 
 	}
 
 
-	private function hitObstacleCreeper(c:ZombieCreeper){
+	/*private function hitObstacleCreeper(c:ZombieCreeper){
 		c.allahuAkbar();
 		for (x in obstacles){
 			if (c.rad > distanceBetween(c, x)){
@@ -150,5 +148,5 @@ class PlayState extends FlxState{
 			}
 		}
 		zombis.remove(c);
-	}
+	}*/
 }

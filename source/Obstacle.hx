@@ -5,7 +5,7 @@ import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRandom;
 
-class Enemy extends FlxSprite{
+class Obstacle extends FlxSprite{
 	public var life:Int;
 	public var damage:Int;
 

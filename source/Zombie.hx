@@ -12,7 +12,7 @@ class Zombie extends FlxSprite{
     public var life:Float;
     public var ps:PlayState;
     public var tolerance:Float;
-    public var damage:Float;
+    public var damage:Int;
     private var dPlayer:Float;
     private var xx:Float;
     private var yy:Float;
