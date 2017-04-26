@@ -142,7 +142,7 @@ class PlayState extends FlxState{
 		text.setPosition(position.x, position.y + Math.cos(t) * 10);*/
 	}
 
-	private function hitBulletZombie(b:Bullet,z:Zombie):Void{
+	private function hitBulletZombie(b:Bullet, z:Zombie):Void{
 		bullets.remove(b);
 		b.kill();
 		z.getHit(b.damage);

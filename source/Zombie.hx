@@ -49,13 +49,13 @@ class Zombie extends FlxSprite{
         yy = speed * (- y / Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
         velocity = new FlxPoint(xx, yy);
 
-
         greenBar = new FlxBar(-145, -105, LEFT_TO_RIGHT, WIDTHBAR, HEIGHBAR);
         greenBar.createFilledBar(FlxColor.RED, FlxColor.GREEN, true, FlxColor.TRANSPARENT);
         greenBar.numDivisions = 5000;
         greenBar.value = 100;
 
         ps.bars.add(greenBar);
+
 
     }
 
@@ -64,7 +64,6 @@ class Zombie extends FlxSprite{
         this.dPlayer = FlxMath.distanceBetween(this,player);
         movement();
         if(attackWaitTime > 0) {attackWaitTime = attackWaitTime - 1;}
-
     }
     
     public function getHit(q:Float):Void{

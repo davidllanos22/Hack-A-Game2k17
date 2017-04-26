@@ -23,7 +23,7 @@ class ZombieCreeper extends Zombie{
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
         var dPlayer = FlxMath.distanceBetween(this,ps.player);
-        if (dPlayer < rad){
+        if (dPlayer <= rad){
         	allahuAkbar();
         }
         movement();
