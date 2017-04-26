@@ -28,6 +28,7 @@ class PlayState extends FlxState{
 	public var obstacles:FlxSpriteGroup;
 	public var bullets:FlxSpriteGroup;
 	public var bars:FlxSpriteGroup;
+	public var drops:FlxSpriteGroup;
 	public var family:Family;
 	public var analog:FlxAnalog;
 	public var button1:FlxButton;
@@ -49,7 +50,6 @@ class PlayState extends FlxState{
 		super.create();
 
 		inventory = new Inventory();
-		var sub = new CraftMenu(inventory, this, FlxColor.GRAY);
 		//openSubState(sub);
 
 		if (FlxG.sound.music == null){
@@ -91,6 +91,7 @@ class PlayState extends FlxState{
 		obstacles = new FlxSpriteGroup();
 		bullets = new FlxSpriteGroup();
 		bars = new FlxSpriteGroup();
+		drops = new FlxSpriteGroup();
 
 		family = new Family(125, 50, 10, 1);
 		player = new Player(144, 122, this, 2.5, 5);
@@ -116,6 +117,7 @@ class PlayState extends FlxState{
 		add(player);
 		add(player.aim);
 		add(bars);
+		add(drops);
 
 		waveNumber = 1;
 		startWave();
@@ -182,6 +184,14 @@ class PlayState extends FlxState{
 			}
 		}
 
+		for(d in drops){
+			if(FlxG.pixelPerfectOverlap(player,d)){
+				inventory.addItem(cast(d,DropedItem).item);
+				d.kill();
+				drops.remove(d);
+			}
+		}
+
 		if(zombiesLeft == 0) {
 			waveCompleted();
 		}
@@ -197,6 +207,7 @@ class PlayState extends FlxState{
 		b.kill();
 		z.getHit(b.damage);
 		if(z.life<=0){
+			drops.add(new DropedItem(z.x,z.y));
 			zombis.remove(z);
 			z.kill();
 			z.greenBar.kill();
@@ -219,6 +230,7 @@ class PlayState extends FlxState{
 
 				z.getHit(o.damage);
 				if(z.life<=0){
+					drops.add(new DropedItem(z.x,z.y));
 					zombis.remove(z);
 					z.kill();
 					zombiesLeft = zombiesLeft - 1;
@@ -300,6 +312,7 @@ class PlayState extends FlxState{
 		add(announcementText);
 		var timer1 = new FlxTimer().start(5, function myCallback(Timer:FlxTimer):Void {
 			remove(announcementText);
+			sub = new CraftMenu(inventory, this, FlxColor.GRAY);
 			openSubState(sub);
 			FlxG.sound.playMusic (AssetPaths.craft__wav, 0.5, true);
 		}, 1);
