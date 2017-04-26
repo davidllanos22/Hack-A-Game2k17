@@ -16,11 +16,8 @@ import flixel.math.FlxRandom;
 import flixel.util.FlxColor;
 import flixel.ui.FlxBar;
 import flixel.system.FlxSound;
-<<<<<<< Updated upstream
 import flixel.system.scaleModes.RatioScaleMode;
-=======
 import Inventory;
->>>>>>> Stashed changes
 
 class PlayState extends FlxState{
 	public var text:FlxText;
