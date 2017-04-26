@@ -65,7 +65,7 @@ class PlayState extends FlxState{
 		button2.loadGraphic("assets/images/button.png");
 		button2.setSize(50,50);
 		inventory = new Inventory();
-
+		FlxG.worldBounds.set(640, 480);
 		analog.scrollFactor.set(0,0);
 		button1.scrollFactor.set(0,0);
 		button2.scrollFactor.set(0,0);

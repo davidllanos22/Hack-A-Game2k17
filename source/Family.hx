@@ -5,7 +5,6 @@ import flixel.FlxG;
 import flixel.system.FlxSound;
 
 class Family extends FlxSprite{
-	public var rad:Float;
 	public var life:Int;
 	private var sndDeath:FlxSound;
 
@@ -16,7 +15,6 @@ class Family extends FlxSprite{
 		loadGraphic(AssetPaths.sprites__png, true, 32, 32);
         animation.add("family", [16], 8);
         animation.play("family");
-		rad = r;
 		life = l;
 	}
 
