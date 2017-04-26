@@ -101,7 +101,11 @@ class PlayState extends FlxState{
 		add(player);
 		add(player.aim);
 		add(bars);
+<<<<<<< Updated upstream
 		add(debugText);
+=======
+		waveNumber = 1;
+>>>>>>> Stashed changes
 
 		waveNumber = 1;
 		startWave();
@@ -177,7 +181,10 @@ class PlayState extends FlxState{
 		if(z.life<=0){
 			zombis.remove(z);
 			z.kill();
+<<<<<<< Updated upstream
 			z.greenBar.kill();
+=======
+>>>>>>> Stashed changes
 			zombiesLeft = zombiesLeft - 1;
 		}
 	}
