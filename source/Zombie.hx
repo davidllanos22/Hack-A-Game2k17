@@ -58,7 +58,8 @@ class Zombie extends FlxSprite{
 
         ps.bars.add(greenBar);
 
-
+        attackWaitTime = 0;
+        this.attackCooldown = attackCooldown;
     }
 
     override public function update(elapsed:Float):Void {
