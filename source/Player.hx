@@ -23,7 +23,6 @@ class Player extends FlxSprite {
 	public function new(x:Float, y:Float, playState:PlayState, baseSpeed:Float, baseFirerate:Float) {
 		super(x, y);
 
-		//makeGraphic(32, 32, FlxColor.ORANGE);
 		loadGraphic(AssetPaths.sprites__png, true, 32, 32);
         animation.add("player_walk", [8,9,8,10], 8);
         animation.play("player_walk");

@@ -47,9 +47,14 @@ class PlayState extends FlxState{
 		zombis = new FlxSpriteGroup();
 		obstacles = new FlxSpriteGroup();
 		bullets = new FlxSpriteGroup();
-		family = new Family(0,0,10,1);
-		player = new Player(0,0,this,5,5);
+
+		family = new Family(0, 0, 10, 1);
+		player = new Player(0, 0, this, 5, 5);
 		
+		add(zombis);
+		add(obstacles);
+		add(bullets);
+
 		add(analog);
 		add(button1);
 		add(button2);
@@ -57,6 +62,8 @@ class PlayState extends FlxState{
 		add(player);
 		add(player.aim);
 		waveNumber = 1;
+
+		spawnZombie(24,24);
 
 		FlxG.camera.follow(player.aim, TOPDOWN, 1);
 		FlxG.camera.followLerp = 5 / FlxG.updateFramerate;
@@ -138,7 +145,7 @@ class PlayState extends FlxState{
 	
 
 	//Fórmula Zombies normales: (sin(x) + x) · sqrt(x)
-	private function spawnZombie(x:Float,y:Float,c1:Float,c2:Float):Void{
+	private function spawnZombie(c1:Float,c2:Float):Void{
 		var x = FlxG.width/2;
 		var y = FlxG.height/2;
 
@@ -148,10 +155,10 @@ class PlayState extends FlxState{
 			var op = random.int(0, 3);
 			
 			switch op{
-				case 0: zombis.add(new Zombie(  -(x+c1)   ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this , 10, 10, 10, 10  ));
-				case 1: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))    ,   y+c2, this , 10 , 10 , 10 , 10  ));
-				case 2: zombis.add(new Zombie(    x+c1    ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this, 10, 10, 10 ,10 ));
-				case 3: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))   ,   -(y+c2),  this,  10, 10, 10 , 10	));
+				case 0: zombis.add(new Zombie(  -(x+c1)   ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this , 10, 10, 128, 10  ));
+				case 1: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))    ,   y+c2, this , 10 , 10 , 128 , 10  ));
+				case 2: zombis.add(new Zombie(    x+c1    ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this, 10, 10, 128 ,10 ));
+				case 3: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))   ,   -(y+c2),  this,  10, 10, 128 , 10	));
 			}
 		}, Math.round((Math.sin(waveNumber) + waveNumber)*Math.sqrt(waveNumber)));
 	}
