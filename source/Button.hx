@@ -39,7 +39,5 @@ class Button extends FlxSprite {
 				pressed = true;
 			}
 		#end
-
-		trace(pressed);
 	}
 }

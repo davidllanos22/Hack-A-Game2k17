@@ -81,7 +81,6 @@ class PlayState extends FlxState{
 		add(player.aim);
 		add(bars);
 		waveNumber = 1;
-		spawnZombie(24,24);
 
 		startWave();
 
@@ -150,7 +149,7 @@ class PlayState extends FlxState{
 			zombis.remove(z);
 			z.kill();
 			z.greenBar.kill();
-
+			zombiesLeft = zombiesLeft - 1;
 		}
 	}
 
@@ -170,6 +169,7 @@ class PlayState extends FlxState{
 				if(z.life<=0){
 					zombis.remove(z);
 					z.kill();
+					zombiesLeft = zombiesLeft - 1;
 				}
 				z.attackWaitTime = z.attackCooldown;
 			}
