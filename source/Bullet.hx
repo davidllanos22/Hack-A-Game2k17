@@ -8,7 +8,7 @@ import Math;
 
 class Bullet extends FlxSprite{
 	public var _speed:Float = 400;
-	public var damage:Float = 1;
+	public var damage:Float = 50;
 	public var _rAngle:Float;
 
 	public function new (x: Float, y: Float, a: Float){

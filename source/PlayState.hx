@@ -149,6 +149,7 @@ class PlayState extends FlxState{
 		if(z.life<=0){
 			zombis.remove(z);
 			z.kill();
+			z.greenBar.kill();
 
 		}
 	}
@@ -192,8 +193,6 @@ class PlayState extends FlxState{
 
 	//Fórmula Zombies normales: (sin(x) + x) · sqrt(x)
 	private function spawnZombie(c1:Float,c2:Float):Void{
-		var x = 540;
-		var y = 360;
 
 		var timer = new FlxTimer().start(2, function myCallback(Timer:FlxTimer):Void{
 
@@ -201,10 +200,10 @@ class PlayState extends FlxState{
 			var op = random.int(0, 3);
 
 			switch op{
-				case 0: zombis.add(new Zombie(  -(x+c1)   ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this , 10, 10, 128, 10, 60));
-				case 1: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))    ,   y+c2, this , 10 , 10 , 128 , 10, 60));
-				case 2: zombis.add(new Zombie(    x+c1    ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this, 10, 10, 128 ,10, 60));
-				case 3: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))   ,   -(y+c2),  this,  10, 10, 128 , 10,	60));
+				case 0: zombis.add(new Zombie(  -(c1)   ,   -c2 + random.float(0,1)*((720+ (2*c2))), this , 100, 10, 128, 10, 60));
+				case 1: zombis.add(new Zombie(  -(c1) + random.float(0,1)*((1080+ (2*c1)))    ,   -c2, this , 100 , 10 , 128 , 10, 60));
+				case 2: zombis.add(new Zombie(1080+c1, -c2 + random.float(0,1) * (720 + (2 * c2)), this, 100, 10, 128 ,10, 60));
+				case 3: zombis.add(new Zombie(  -(c1) + random.float(0,1)*((1080+(2*c1)))   ,   720+c2,  this,  100, 10, 128 , 10,	60));
 			}
 
 		}, Math.round((Math.sin(waveNumber) + waveNumber)*Math.sqrt(waveNumber)));

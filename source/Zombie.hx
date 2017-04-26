@@ -23,7 +23,8 @@ class Zombie extends FlxSprite{
     private var target:FlxSprite;
     public var attackCooldown:Int;
     public var attackWaitTime:Int;
-    private var greenBar:FlxBar;
+    public var greenBar:FlxBar;
+    private var maxlife:Float;
 
     public static inline var WIDTHBAR = 16;
     public static inline var HEIGHBAR = 4;
@@ -38,6 +39,7 @@ class Zombie extends FlxSprite{
         this.tolerance = tolerance;
         this.player = ps.player;
         this.damage = damage;
+        this.maxlife = life;
 
         target = ps.family;
 
@@ -68,7 +70,7 @@ class Zombie extends FlxSprite{
     
     public function getHit(q:Float):Void{
         life -= q;
-        greenBar.value-=q;
+        greenBar.value = life * 100 / maxlife;
     }
 
     private function movement():Void{
