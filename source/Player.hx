@@ -57,8 +57,11 @@ class Player extends FlxSprite {
 		this.firerateMultiplier = 1;
 		this.fireWaitTime = 0;
 
-		aim = new flixel.FlxSprite(x + 50,y);
-		aim.makeGraphic(2, 2, FlxColor.RED);
+		aim = new FlxSprite(x + 50, y);
+		aim.loadGraphic(AssetPaths.tiles__png, true, 16, 16);
+		aim.animation.add("aim", [21], 8);
+        aim.animation.play("aim");
+        aim.offset.set(9, 9);
 
 		life=100;
 

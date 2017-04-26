@@ -84,5 +84,4 @@ class Inventory {
 			items[key] -= 1;
 		}
 	}
-	
 }
