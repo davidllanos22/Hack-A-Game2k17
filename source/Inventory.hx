@@ -51,6 +51,10 @@ class Inventory {
 		items[item]+=1;
 	}
 
+	public function getQuantity(it:Item):Int{
+		return items[it];
+	}
+
 	public function createItem(it:Item){
 		for(i in recipes[it]){
 			items[i] -= 1;
