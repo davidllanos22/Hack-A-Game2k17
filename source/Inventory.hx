@@ -48,32 +48,37 @@ class Inventory {
 	}
 
 	public function addItem(item:Item){
-		items[item]+=1;
+		items[item] += 1;
 	}
 
 	public function getQuantity(it:Item):Int{
 		return items[it];
 	}
 
-	public function createItem(it:Item){
-		for(i in recipes[it]){
-			items[i] -= 1;
-		}
-		items[it] += 1;
+	public function createItem(recipe:Item){
+		if(!canCreate(recipe)) return;
+		removeItemsFromRecipe(recipe);
+		items[recipe] += 1;
 	}
 
-	public function canCreate(it:Item):Bool{
-		var temp:Map<Item,Int>;
-		temp=new Map<Item,Int>();
-		for(i in recipes[it]){
-			//temp[i]++;
+	public function canCreate(recipe:Item):Bool{
+		var temp = new Map<Item, Int>();
+		for(i in items.keys()){
+			temp.set(i, items[i]);
 		}
-		for(key in temp.keys()){
-			if(temp[key]>items[key]){
-				return false;
-			}
+
+		for(key in recipes[recipe]){
+			temp[key] -= 1;
+			if(temp[key] == -1) return false;
 		}
+
 		return true;
+	}
+
+	public function removeItemsFromRecipe(recipe:Item){
+		for(key in recipes[recipe]){
+			items[key] -= 1;
+		}
 	}
 	
 }
