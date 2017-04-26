@@ -42,9 +42,9 @@ class PlayState extends FlxState{
 	override public function create():Void{
 		super.create();
 
-		analog = new FlxAnalog(60, 180, 50, 0);
-		button1 = new Button(240, 200, 20);
-		button2 = new Button(280, 160, 20);
+		analog = new FlxAnalog(60, FlxG.height - 60, 50, 0);
+		button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20);
+		button2 = new Button(FlxG.width - 50, FlxG.height - 90, 20);
 
 		analog.scrollFactor.set(0,0);
 		button1.scrollFactor.set(0,0);
