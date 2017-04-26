@@ -84,4 +84,25 @@ class PlayState extends FlxState{
 		}
 	}
 
+	private function spawnZombie(x:Float,y:Float):Void{
+		var x = FlxG.width/2;
+		var y = FlxG.height/2;
+
+		timer = new FlxTimer().start(t, function myCallback(Timer:FlxTimer):Void{
+			var random = new FlxRandom();
+			var op = random.int(0, 3);
+			switch op{
+				case 0: obstacleGroup.add(new Enemy(  -(x+c1)   ,   -(y+c2) + random.float(0,1)*(2*(y+c2))    ));
+				case 1: obstacleGroup.add(new Enemy(  -(x+c1) + random.float(0,1)*(2*(x+c1))    ,   y+c2   ));
+				case 2: obstacleGroup.add(new Enemy(    x+c1    ,   -(y+c2) + random.float(0,1)*(2*(y+c2))    ));
+				case 3: obstacleGroup.add(new Enemy(  -(x+c1) + random.float(0,1)*(2*(x+c1))   ,   -(y+c2)    ));
+			}
+			
+		}, 0);
+	}
+
+	private function spawnObject(x:Float,y:Float):Void{
+
+	}
+
 }

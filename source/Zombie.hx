@@ -31,7 +31,7 @@ class Zombie extends FlxSprite{
         /*loadGraphic(AssetPaths.sprites__png, true, 16, 16);
         animation.add("zombie", [0], 5);
         animation.play("zombie");*/
-        
+
         xx = speed * (- x / Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
         yy = speed * (- y / Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
         velocity = new FlxPoint(xx, yy);
