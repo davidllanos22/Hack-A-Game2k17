@@ -61,11 +61,11 @@ class PlayState extends FlxState{
 		}
 		analog = new FlxAnalog(60, FlxG.height - 60, 50, 0);
 		//button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20, this);
-		button1 = new FlxButton(FlxG.width - 90, FlxG.height - 50,"1");
+		button1 = new FlxButton(FlxG.width - 90, FlxG.height - 50,"1", placeAttempt);
 		button1.loadGraphic("assets/images/button.png");
 		button1.setSize(50,50);
 		//button2 = new Button(FlxG.width - 50, FlxG.height - 90, 20, this);
-		button2 = new FlxButton(FlxG.width - 50, FlxG.height - 90,"2");
+		button2 = new FlxButton(FlxG.width - 50, FlxG.height - 90,"2", stopPlacing);
 		button2.loadGraphic("assets/images/button.png");
 		button2.setSize(50,50);
 		inventory = new Inventory();
@@ -379,20 +379,22 @@ class PlayState extends FlxState{
 		if(putObject) {
 			var life:Int;
 			var dmg:Int;
-			switch(el) {
-            	case STONE_WALL:
-            		life = 400;
-            		dmg = 0;
-            	case WOOD_BARRICADE:
-            		life = 200;
-            		dmg = 25;
-            	case WOOD_WALL:
-            		life = 300;
-            		dmg = 0;
-            	default:
-            		life = 100;
-            		dmg = 0;
-       		}
+			if(el == Item.STONE_WALL) {
+				life = 400;
+            	dmg = 0;
+			}
+			if(el == Item.WOOD_BARRICADE) {
+				life = 200;
+            	dmg = 25;
+			}
+			if(el == Item.WOOD_WALL) {
+				life = 300;
+            	dmg = 0;
+			}
+			else {
+				life = 100;
+            	dmg = 0;
+			}
 			var obs = new Obstacle(player.aim.x, player.aim.y, 32, 32,life, dmg, el, null, player.angle, true);
 			var trobat = false;
 			for (obst in obstacles) {
@@ -406,7 +408,7 @@ class PlayState extends FlxState{
 				add(obs);
 				obstacles.add(obs);
 				inventory.removeItem(el);
-				if(inventory.getQuantity(el) == 0) {
+				if(inventory.getQuantity(el) <= 0) {
 					button1.active = false;
 					button1.alpha = 0.3;
 				}
@@ -416,6 +418,7 @@ class PlayState extends FlxState{
 
 	public function stopPlacing() {
 		if(putObject) {
+			trace("HOE");
 			var sub = new CraftMenu(inventory, this, FlxColor.GRAY);
 			openSubState(sub);
 		}

@@ -87,7 +87,7 @@ class Player extends FlxSprite {
 		#if mobile
 
 			if(fireWaitTime != 0) {fireWaitTime = fireWaitTime - ( 1 / 60);}
-			if(playState.button1.pressed && fireWaitTime <= 0) {
+			if((!playState.putObject) && playState.button1.pressed && fireWaitTime <= 0) {
 				gunShoot();
 				fireWaitTime = fireWaitTime + (1 / (baseFirerate * firerateMultiplier));
 			}
@@ -97,7 +97,7 @@ class Player extends FlxSprite {
 		#else
 
 			if(fireWaitTime != 0) {fireWaitTime = fireWaitTime - ( 1 / 60);}
-			if(FlxG.keys.pressed.SPACE && fireWaitTime <= 0) {
+			if((!playState.putObject) && FlxG.keys.pressed.SPACE && fireWaitTime <= 0) {
 				gunShoot();
 				fireWaitTime = fireWaitTime + (1 / (baseFirerate * firerateMultiplier));
 			}
