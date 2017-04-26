@@ -34,23 +34,32 @@ class PlayState extends FlxState{
 		super.create();
 
 		analog = new FlxAnalog(60, 180, 50, 0);
-		analog.scrollFactor.set(0, 0);
-		button1 = new Button(240, 200, 10);
-		button1.scrollFactor.set(0, 0);
-		button2 = new Button(280, 160, 10);
-		button2.scrollFactor.set(0, 0);
+		button1 = new Button(240, 200, 20);
+		button2 = new Button(280, 160, 20);
+		analog.scrollFactor.set(0,0);
+		button1.scrollFactor.set(0,0);
+		button2.scrollFactor.set(0,0);
+
+		analog.alpha = 0.5;
+		button1.alpha = 0.5;
+		button2.alpha = 0.5;
+
 		zombis = new FlxSpriteGroup();
 		obstacles = new FlxSpriteGroup();
-		this.bullets = new FlxSpriteGroup();
+		bullets = new FlxSpriteGroup();
 		family = new Family(0,0,10,1);
-		waveNumber = 1;
+		player = new Player(0,0,this,5,5);
+		
 		add(analog);
 		add(button1);
 		add(button2);
+		add(family);
 		add(player);
 		add(player.aim);
+		waveNumber = 1;
 
 		FlxG.camera.follow(player.aim, TOPDOWN, 1);
+		FlxG.camera.followLerp = 5 / FlxG.updateFramerate;
 	}
 
 	override public function update(elapsed:Float):Void{

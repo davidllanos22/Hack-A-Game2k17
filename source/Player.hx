@@ -23,10 +23,10 @@ class Player extends FlxSprite {
 	public function new(x:Float, y:Float, playState:PlayState, baseSpeed:Float, baseFirerate:Float) {
 		super(x, y);
 
-		makeGraphic(16, 16, FlxColor.ORANGE);
-		//loadGraphic(AssetPaths.sprites__png, true, 16, 16);
-        //animation.add("spaceship", [1], 5);
-        //animation.play("spaceship");
+		//makeGraphic(32, 32, FlxColor.ORANGE);
+		loadGraphic(AssetPaths.sprites__png, true, 32, 32);
+        animation.add("player_walk", [8,9,8,10], 8);
+        animation.play("player_walk");
 
 		this.playState = playState;
 
@@ -51,6 +51,7 @@ class Player extends FlxSprite {
 			gunShoot();
 			fireWaitTime = fireWaitTime + (1 / (baseFirerate * firerateMultiplier));
 		}
+
 		if(!playState.button1.pressed && fireWaitTime < 0) {fireWaitTime = 0;}
 
 		#else
@@ -72,12 +73,11 @@ class Player extends FlxSprite {
 		var button1 = playState.button1;
 		var button2 = playState.button2;
 
-		if(!button1.pressed) {
-			angle = analog.getAngle();
-			var p = FlxAngle.getCartesianCoords(50, angle);
-			aim.x = p.x;
-			aim.y = p.y;
-		}
+		if(!button1.pressed && !FlxG.keys.pressed.SPACE) angle = analog.getAngle() + 90;
+
+		var p = FlxAngle.getCartesianCoords(100, angle - 90);
+		aim.x = p.x + this.x + 16;
+		aim.y = p.y + this.y + 16;
 		
 		if(Math.pow(analog.acceleration.x, 2) + Math.pow(analog.acceleration.y, 2) > 441) {
 			x = x + (analog.acceleration.x * baseSpeed * speedMultiplier / 42);
@@ -86,7 +86,7 @@ class Player extends FlxSprite {
 	}
 
 	public function gunShoot():Void {
-		var bullet = new Bullet(x - 5, y - 16, angle);
+		var bullet = new Bullet(x - 5, y - 16, angle - 90);
 		playState.add(bullet);
 	}
 

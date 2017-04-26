@@ -8,7 +8,7 @@ class Family extends FlxSprite{
 
 	override public function new(x:Int, y:Int, r:Float, l:Int):Void{
 		super(x, y);
-		//setSize(2, 2); --> Set size al tamaño que más os apetezca.
+		setSize(32, 32);
 		rad = r;
 		life = l;
 	}
