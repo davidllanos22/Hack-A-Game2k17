@@ -9,6 +9,9 @@ class Family extends FlxSprite{
 	override public function new(x:Int, y:Int, r:Float, l:Int):Void{
 		super(x, y);
 		setSize(32, 32);
+		loadGraphic(AssetPaths.sprites__png, true, 32, 32);
+        animation.add("family", [16], 8);
+        animation.play("family");
 		rad = r;
 		life = l;
 	}

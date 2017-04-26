@@ -11,11 +11,14 @@ class Bullet extends FlxSprite{
 	public var damage:Float = 1;
 	public var _rAngle:Float;
 
-	public function new (x: Float, y: Float, angle: Float){
+	public function new (x: Float, y: Float, a: Float){
 		super(x, y);
-		setSize(8,8);
-		this._rAngle = angle;
-		//Cargar sprite y animación.
+		setSize(8, 8);
+		this._rAngle = a;
+		angle = a + 90;
+		loadGraphic(AssetPaths.tiles__png, true, 16, 16);
+        animation.add("bullet", [32], 8);
+        animation.play("bullet");
 	}
 
 	private function movement():Void{

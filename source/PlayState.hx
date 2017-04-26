@@ -44,12 +44,17 @@ class PlayState extends FlxState{
 		button1.alpha = 0.5;
 		button2.alpha = 0.5;
 
+		// analog.scale.x = 0.5;
+		// analog.scale.y = 0.5;
+
 		zombis = new FlxSpriteGroup();
 		obstacles = new FlxSpriteGroup();
 		bullets = new FlxSpriteGroup();
 
 		family = new Family(0, 0, 10, 1);
 		player = new Player(0, 0, this, 5, 5);
+
+		add(new FlxSprite(0, 0, AssetPaths.bg__png));
 		
 		add(zombis);
 		add(obstacles);
