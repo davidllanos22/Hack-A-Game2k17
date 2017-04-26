@@ -1,6 +1,8 @@
 package;
 
 import Math;
+import flixel.FlxSprite;
+import flixel.util.FlxColor;
 
 class Player extends FlxSprite {
 	
