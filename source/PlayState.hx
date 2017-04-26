@@ -119,30 +119,32 @@ class PlayState extends FlxState{
 	}
 
 	private function hitObstacleZombie(o:Obstacle,z:Zombie):Void{
-		o.getHit(z.damage);
-		if(o.life<=0){
-			obstacles.remove(o);
-			o.kill();
-		}
-		/*if(Type.getClass(z).getName()=="ZombieCreeper"){
-			hitObstacleCreeper(cast(z,ZombieCreeper));
-		}else{*/
+		if(Type.getClassName(Type.getClass(z))=="ZombieCreeper"){
+			hitCreeper(cast(z,ZombieCreeper));
+		}else{
+			o.getHit(z.damage);
+			if(o.life<=0){
+				obstacles.remove(o);
+				o.kill();
+			}
 			z.getHit(o.damage);
 			if(z.life<=0){
 				zombis.remove(z);
 				z.kill();
 			}
-		//}
+		}
 	}
 
-	/*private function hitPlayerZombi(z:Zombie):Void{
-		player.getHit(z.damage);
-		if(player.life<=0){
-			FlxG.switchState(new DefeatState());
+	private function hitPlayerZombi(z:Zombie):Void{
+		if(Type.getClassName(Type.getClass(z))=="ZombieCreeper"){
+			hitCreeper(cast(z,ZombieCreeper));
+		}else{
+			player.getHit(z.damage);
+			if(player.life<=0){
+				FlxG.switchState(new DefeatState(waveNumber));
+			}
 		}
-	}*/
-
-	
+	}
 
 	//Fórmula Zombies normales: (sin(x) + x) · sqrt(x)
 	private function spawnZombie(c1:Float,c2:Float):Void{
@@ -171,11 +173,18 @@ class PlayState extends FlxState{
 
 
 
-	private function hitObstacleCreeper(c:ZombieCreeper){
-		c.allahuAkbar();
+	private function hitCreeper(c:ZombieCreeper){
+		if(c.alive)c.allahuAkbar();
 		for (x in obstacles){
-			if (c.rad > FlxMath.distanceBetween(c, x)){
+			if (c.rad <= FlxMath.distanceBetween(c, x)){
 				obstacles.remove(x);
+			}
+		}
+
+		if(c.rad <= FlxMath.distanceBetween(player,c)){
+			player.getHit(c.damage);
+			if(player.life<=0){
+				FlxG.switchState(new DefeatState(waveNumber));
 			}
 		}
 		zombis.remove(c);

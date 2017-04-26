@@ -19,6 +19,7 @@ class Player extends FlxSprite {
 	public var fireWaitTime:Float;
 
 	public var aim:flixel.FlxSprite;
+	public var life:Int;
 
 	public function new(x:Float, y:Float, playState:PlayState, baseSpeed:Float, baseFirerate:Float) {
 		super(x, y);
@@ -38,6 +39,8 @@ class Player extends FlxSprite {
 
 		aim = new flixel.FlxSprite(x + 50,y);
 		aim.makeGraphic(2, 2, FlxColor.RED);
+
+		life=100;
 	}
 
 	override public function update(elapsed:Float) {
@@ -89,4 +92,7 @@ class Player extends FlxSprite {
 		playState.add(bullet);
 	}
 
+	public function getHit(damage:Int){
+		life-=damage;
+	}
 }
