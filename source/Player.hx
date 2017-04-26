@@ -127,16 +127,16 @@ class Player extends FlxSprite {
 			aim.y = p.y + this.y + 16;
 			
 			if(Math.pow(analog.acceleration.x, 2) + Math.pow(analog.acceleration.y, 2) > 441) {
-				if (x <= 1080 && x >= 0){
+				if (x <= 616 && x >= 12){
 					x = x + (analog.acceleration.x * baseSpeed * speedMultiplier / 42);
 				}
-				if (y <= 720 && y >= 0){
+				if (y <= 456 && y >= 12){
 					y = y + (analog.acceleration.y * baseSpeed * speedMultiplier / 42);
 				}
-				if (x < 0) x = 0;
-				if (x > 640) x = 640;
-				if (y < 0) y = 0;
-				if (y > 480) y = 480;
+				if (x < 12) x = 12;
+				if (x > 616) x = 616;
+				if (y < 12) y = 12;
+				if (y > 456) y = 456;
 			}
 		#else
 			if(!button1.pressed && !FlxG.keys.pressed.SPACE && !analog.justReleased) angle = analog.getAngle() + 90;
@@ -146,16 +146,16 @@ class Player extends FlxSprite {
 			aim.y = p.y + this.y + 16;
 
 			if(Math.pow(analog.acceleration.x, 2) + Math.pow(analog.acceleration.y, 2) > 441) {
-				if (x <= 640 && x >= 0){
+				if (x <= 616 && x >= 0){
 					x = x + (analog.acceleration.x * baseSpeed * speedMultiplier / 42);
 				}
-				if (y <= 480 && y >= 0){
+				if (y <= 456 && y >= 0){
 					y = y + (analog.acceleration.y * baseSpeed * speedMultiplier / 42);
 				}
-				if (x < 0) x = 0;
-				if (x > 640) x = 640;
-				if (y < 0) y = 0;
-				if (y > 480) y = 480;
+				if (x < 12) x = 12;
+				if (x > 616) x = 616;
+				if (y < 12) y = 12;
+				if (y > 456) y = 456;
 			}
 		#end
 

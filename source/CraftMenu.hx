@@ -7,6 +7,7 @@ import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.FlxCamera;
 import flixel.util.FlxColor;
+import flixel.system.FlxSound;
 import Std;
 import Inventory;
 
@@ -191,6 +192,7 @@ class CraftMenu extends FlxSubState{
 
 	public function newtWave():Void {
 		playState.startWave();
+		FlxG.sound.playMusic(AssetPaths.battle__wav, 0.5, true);
 		close();
 
 	}

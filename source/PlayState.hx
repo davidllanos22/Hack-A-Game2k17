@@ -301,6 +301,7 @@ class PlayState extends FlxState{
 		var timer1 = new FlxTimer().start(5, function myCallback(Timer:FlxTimer):Void {
 			remove(announcementText);
 			openSubState(sub);
+			FlxG.sound.playMusic (AssetPaths.craft__wav, 0.5, true);
 		}, 1);
 	}
 
