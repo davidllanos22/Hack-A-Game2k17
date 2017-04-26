@@ -128,12 +128,11 @@ class Player extends FlxSprite {
 			if(Math.pow(analog.acceleration.x, 2) + Math.pow(analog.acceleration.y, 2) > 441) {
 				x = x + (analog.acceleration.x * baseSpeed * speedMultiplier / 42);
 				y = y + (analog.acceleration.y * baseSpeed * speedMultiplier / 42);
-				if(FlxG.collide(this,playState.obstacles)){
-					velocity.set(0,0);
-					}
-				}
+			}
 		#end
-
+		if(FlxG.collide(this,playState.obstacles)){
+			velocity.set(0,0);
+		}
 	}
 
 	public function gunShoot():Void {
