@@ -39,6 +39,9 @@ class PlayState extends FlxState{
 	public var yellowBar:FlxBar;
 	public var inventory:Inventory;
 	public var sub:CraftMenu;
+	private var sndVictory:FlxSound;
+	private var sndDeath:FlxSound;
+	private var sndGrunt:FlxSound;
 
 	private static inline var SPEED:Float = 2;
 
@@ -48,8 +51,12 @@ class PlayState extends FlxState{
 		super.create();
 
 		inventory = new Inventory();
-		
-		
+		var sub = new CraftMenu(inventory, this, FlxColor.GRAY);
+		openSubState(sub);
+
+		if (FlxG.sound.music == null){
+			FlxG.sound.playMusic(AssetPaths.battle__wav, 0.5, true);
+		}
 		analog = new FlxAnalog(60, FlxG.height - 60, 50, 0);
 		//button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20, this);
 		button1 = new FlxButton(FlxG.width - 90, FlxG.height - 50,"1");
@@ -82,6 +89,7 @@ class PlayState extends FlxState{
 		debugText = new FlxText(0, 20, 0, "Debug", 8);
 		debugText.scrollFactor.set(0, 0);
 
+        sndVictory = FlxG.sound.load(AssetPaths.waveEnd__wav);
 		zombis = new FlxSpriteGroup();
 		obstacles = new FlxSpriteGroup();
 		bullets = new FlxSpriteGroup();
@@ -89,6 +97,9 @@ class PlayState extends FlxState{
 
 		family = new Family(125, 50, 10, 1);
 		player = new Player(0, 0, this, 2.5, 5);
+        sndGrunt = FlxG.sound.load(AssetPaths.zombieGrunt__wav);
+        sndDeath = FlxG.sound.load(AssetPaths.enemyDeath__wav);
+
 
 		add(new FlxSprite(0, 0, AssetPaths.bg__png));
 		
@@ -185,6 +196,7 @@ class PlayState extends FlxState{
 			z.kill();
 			z.greenBar.kill();
 			zombiesLeft = zombiesLeft - 1;
+			sndDeath.play();
 		}
 	}
 
@@ -272,6 +284,9 @@ class PlayState extends FlxState{
 	}
 
 	private function waveCompleted():Void {
+		FlxG.sound.pause();
+		sndVictory.play();
+		sndVictory.onComplete = playBattle;
 		waveNumber = waveNumber + 1;
 		zombiesLeft = -1;
 		announcementText = new FlxText(0, 0, 0, "Wave Completed", 16);
@@ -293,6 +308,11 @@ class PlayState extends FlxState{
 			remove(announcementText);
 		}, 1);
 		spawnZombie(24,24);
+		sndGrunt.play();
+	}
+
+	private function playBattle(){
+		FlxG.sound.playMusic(AssetPaths.battle__wav, 0.5, true);
 	}
 
 }
