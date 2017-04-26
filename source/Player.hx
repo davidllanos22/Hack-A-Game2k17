@@ -6,6 +6,8 @@ import flixel.util.FlxColor;
 import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
 import flixel.FlxG;
+import flixel.ui.FlxBar;
+import flixel.util.FlxColor;
 
 class Player extends FlxSprite {
 	
@@ -20,6 +22,12 @@ class Player extends FlxSprite {
 
 	public var aim:flixel.FlxSprite;
 	public var life:Int;
+
+	public var greenBar:FlxBar;
+	public var yellowBar:FlxBar;
+
+	public static inline var WIDTHBAR = 16;
+	public static inline var HEIGHBAR = 4;
 
 	public function new(x:Float, y:Float, playState:PlayState, baseSpeed:Float, baseFirerate:Float) {
 		super(x, y);
@@ -41,6 +49,21 @@ class Player extends FlxSprite {
 		aim.makeGraphic(2, 2, FlxColor.RED);
 
 		life=100;
+
+		greenBar = new FlxBar(-145, -105, LEFT_TO_RIGHT, WIDTHBAR, HEIGHBAR);
+		greenBar.createFilledBar(FlxColor.TRANSPARENT, FlxColor.GREEN, true, FlxColor.TRANSPARENT);
+		greenBar.numDivisions = 5000;
+		greenBar.value = 100;
+
+		yellowBar = new FlxBar(-145,-105, LEFT_TO_RIGHT, WIDTHBAR, HEIGHBAR);
+		yellowBar.createFilledBar(FlxColor.RED, FlxColor.YELLOW, true, FlxColor.TRANSPARENT);
+		yellowBar.numDivisions = 5000;
+		yellowBar.value = 100;
+
+		playState.bars.add(yellowBar);
+		playState.bars.add(greenBar);
+
+
 	}
 
 	override public function update(elapsed:Float) {
@@ -66,6 +89,15 @@ class Player extends FlxSprite {
 			if(!FlxG.keys.pressed.SPACE && fireWaitTime < 0) {fireWaitTime = 0;}
 
 		#end
+
+		greenBar.x = x + 8;
+		greenBar.y = y - 6;
+		yellowBar.x = x + 8;
+		yellowBar.y = y - 6;
+
+		if(greenBar.value < yellowBar.value){
+			greenBar.value-=0.1;
+		}
 
 		super.update(elapsed);
 	}
@@ -107,5 +139,6 @@ class Player extends FlxSprite {
 
 	public function getHit(damage:Int){
 		life -= damage;
+		greenBar.value-= damage;
 	}
 }
