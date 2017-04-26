@@ -63,12 +63,17 @@ class PlayState extends FlxState{
 		button1.alpha = 0.5;
 		button2.alpha = 0.5;
 		
-		inventory.addItem(Item.ALCOHOL);
-
 		FlxG.scaleMode = new RatioScaleMode(false);
 
 		// analog.scale.x = 0.5;
 		// analog.scale.y = 0.5;
+
+		inventory.addItem(Item.WOOD);
+		inventory.addItem(Item.WOOD);
+
+		trace("cancreate: " + inventory.canCreate(Item.WOOD_WALL));
+
+		inventory.createItem(Item.WOOD_WALL);
 
 		debugText = new FlxText(0, 20, 0, "Debug", 8);
 		debugText.scrollFactor.set(0, 0);
