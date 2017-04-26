@@ -13,6 +13,9 @@ import flixel.FlxCamera;
 import flixel.ui.FlxAnalog;
 import flixel.util.FlxTimer;
 import flixel.math.FlxRandom;
+import flixel.util.FlxColor;
+import flixel.ui.FlxBar;
+import flixel.system.FlxSound;
 
 class PlayState extends FlxState{
 	public var text:FlxText;
@@ -22,6 +25,7 @@ class PlayState extends FlxState{
 	public var zombis:FlxSpriteGroup;
 	public var obstacles:FlxSpriteGroup;
 	public var bullets:FlxSpriteGroup;
+	public var bars:FlxSpriteGroup;
 	public var family:Family;
 	public var analog:FlxAnalog;
 	public var button1:Button;
@@ -29,6 +33,9 @@ class PlayState extends FlxState{
 	public var waveNumber:Int;
 	public var zombiesLeft:Int;
 	public var announcementText:FlxText;
+	public var greenBar:FlxBar;
+	public var yellowBar:FlxBar;
+	
 
 	private static inline var SPEED:Float = 2;
 
@@ -38,6 +45,7 @@ class PlayState extends FlxState{
 		analog = new FlxAnalog(60, 180, 50, 0);
 		button1 = new Button(240, 200, 20);
 		button2 = new Button(280, 160, 20);
+
 		analog.scrollFactor.set(0,0);
 		button1.scrollFactor.set(0,0);
 		button2.scrollFactor.set(0,0);
@@ -52,6 +60,7 @@ class PlayState extends FlxState{
 		zombis = new FlxSpriteGroup();
 		obstacles = new FlxSpriteGroup();
 		bullets = new FlxSpriteGroup();
+		bars = new FlxSpriteGroup();
 
 		family = new Family(0, 0, 10, 1);
 		player = new Player(0, 0, this, 5, 5);
@@ -68,12 +77,16 @@ class PlayState extends FlxState{
 		add(family);
 		add(player);
 		add(player.aim);
+		add(bars);
 		waveNumber = 1;
+		spawnZombie(24,24);
 
 		startWave();
 
 		FlxG.camera.follow(player.aim, TOPDOWN, 1);
 		FlxG.camera.followLerp = 5 / FlxG.updateFramerate;
+
+
 	}
 
 	override public function update(elapsed:Float):Void{
@@ -185,13 +198,14 @@ class PlayState extends FlxState{
 
 			var random = new FlxRandom();
 			var op = random.int(0, 3);
-			
+
 			switch op{
 				case 0: zombis.add(new Zombie(  -(x+c1)   ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this , 10, 10, 128, 10, 60));
 				case 1: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))    ,   y+c2, this , 10 , 10 , 128 , 10, 60));
 				case 2: zombis.add(new Zombie(    x+c1    ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this, 10, 10, 128 ,10, 60));
 				case 3: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))   ,   -(y+c2),  this,  10, 10, 128 , 10,	60));
 			}
+
 		}, Math.round((Math.sin(waveNumber) + waveNumber)*Math.sqrt(waveNumber)));
 	}
 
@@ -200,7 +214,6 @@ class PlayState extends FlxState{
 	private function spawnObject(x:Float,y:Float):Void{
 
 	}
-
 
 
 	private function hitCreeper(c:ZombieCreeper){

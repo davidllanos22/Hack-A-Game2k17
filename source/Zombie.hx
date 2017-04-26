@@ -5,9 +5,11 @@ import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRandom;
 import flixel.math.FlxMath;
+import flixel.util.FlxColor;
+import flixel.ui.FlxBar;
 
 class Zombie extends FlxSprite{
-	
+    
     public var speed:Float;
     public var life:Float;
     public var ps:PlayState;
@@ -20,7 +22,11 @@ class Zombie extends FlxSprite{
     private var target:FlxSprite;
     public var attackCooldown:Int;
     public var attackWaitTime:Int;
+    private var greenBar:FlxBar;
 
+    public static inline var WIDTHBAR = 16;
+    public static inline var HEIGHBAR = 4;
+    
 	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float,damage:Int, attackCooldown:Int) {
         super(x, y);
         trace("spawn");
@@ -42,17 +48,28 @@ class Zombie extends FlxSprite{
         yy = speed * (- y / Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
         velocity = new FlxPoint(xx, yy);
 
+
+        greenBar = new FlxBar(-145, -105, LEFT_TO_RIGHT, WIDTHBAR, HEIGHBAR);
+        greenBar.createFilledBar(FlxColor.RED, FlxColor.GREEN, true, FlxColor.TRANSPARENT);
+        greenBar.numDivisions = 5000;
+        greenBar.value = 100;
+
+        ps.bars.add(greenBar);
+
     }
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
         this.dPlayer = FlxMath.distanceBetween(this,player);
         movement();
+
         //if(attackWaitTime > 0) {attackWaitTime = attackWaitTime - 1;}
+
     }
     
     public function getHit(q:Float):Void{
         life -= q;
+        greenBar.value-=q;
     }
 
     private function movement():Void{
@@ -75,6 +92,9 @@ class Zombie extends FlxSprite{
         angle = getPosition().angleBetween(target.getPosition());
 
         velocity = new FlxPoint(xx,yy);
+
+        greenBar.x = this.x + 8;
+        greenBar.y = this .y - 6;
     }
 
 }
