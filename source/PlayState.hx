@@ -46,6 +46,10 @@ class PlayState extends FlxState{
 	override public function create():Void{
 		super.create();
 
+		inventory = new Inventory();
+		var sub = new CraftMenu(inventory, this, FlxColor.GRAY);
+		openSubState(sub);
+
 		analog = new FlxAnalog(60, FlxG.height - 60, 50, 0);
 		//button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20, this);
 		button1 = new FlxButton(FlxG.width - 90, FlxG.height - 50,"1");
@@ -101,11 +105,6 @@ class PlayState extends FlxState{
 		add(player);
 		add(player.aim);
 		add(bars);
-<<<<<<< Updated upstream
-		add(debugText);
-=======
-		waveNumber = 1;
->>>>>>> Stashed changes
 
 		waveNumber = 1;
 		startWave();
@@ -181,10 +180,7 @@ class PlayState extends FlxState{
 		if(z.life<=0){
 			zombis.remove(z);
 			z.kill();
-<<<<<<< Updated upstream
 			z.greenBar.kill();
-=======
->>>>>>> Stashed changes
 			zombiesLeft = zombiesLeft - 1;
 		}
 	}
