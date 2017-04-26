@@ -27,6 +27,8 @@ class PlayState extends FlxState{
 	public var button1:Button;
 	public var button2:Button;
 	public var waveNumber:Int;
+	public var zombiesLeft:Int;
+	public var announcementText:FlxText;
 
 	private static inline var SPEED:Float = 2;
 
@@ -68,7 +70,7 @@ class PlayState extends FlxState{
 		add(player.aim);
 		waveNumber = 1;
 
-		spawnZombie(24,24);
+		startWave();
 
 		FlxG.camera.follow(player.aim, TOPDOWN, 1);
 		FlxG.camera.followLerp = 5 / FlxG.updateFramerate;
@@ -116,6 +118,10 @@ class PlayState extends FlxState{
 			}
 		}
 
+		if(zombiesLeft == 0) {
+			waveCompleted();
+		}
+
 		/*t += 0.1;
 		position.add(SPEED, 0);
 		if(position.x > FlxG.camera.width) position.x = - 120;
@@ -136,16 +142,21 @@ class PlayState extends FlxState{
 	private function hitObstacleZombie(o:Obstacle,z:Zombie):Void{
 		if(Type.getClassName(Type.getClass(z))=="ZombieCreeper"){
 			hitCreeper(cast(z,ZombieCreeper));
-		}else{
-			o.getHit(z.damage);
-			if(o.life<=0){
-				obstacles.remove(o);
-				o.kill();
-			}
-			z.getHit(o.damage);
-			if(z.life<=0){
-				zombis.remove(z);
-				z.kill();
+		}
+		else {
+			if (z.attackWaitTime == 0) {
+				o.getHit(z.damage);
+				if(o.life<=0){
+					obstacles.remove(o);
+					o.kill();
+				}
+
+				z.getHit(o.damage);
+				if(z.life<=0){
+					zombis.remove(z);
+					z.kill();
+				}
+				z.attackWaitTime = z.attackCooldown;
 			}
 		}
 	}
@@ -153,18 +164,22 @@ class PlayState extends FlxState{
 	private function hitPlayerZombi(z:Zombie):Void{
 		if(Type.getClassName(Type.getClass(z))=="ZombieCreeper"){
 			hitCreeper(cast(z,ZombieCreeper));
-		}else{
-			player.getHit(z.damage);
-			if(player.life<=0){
+		}
+		else {
+			if(z.attackWaitTime == 0) {
+				player.getHit(z.damage);
+				z.attackWaitTime = z.attackCooldown;
+				if(player.life<=0){
 				FlxG.switchState(new DefeatState(waveNumber));
+				}
 			}
 		}
 	}
 
 	//Fórmula Zombies normales: (sin(x) + x) · sqrt(x)
 	private function spawnZombie(c1:Float,c2:Float):Void{
-		var x = FlxG.width/2;
-		var y = FlxG.height/2;
+		var x = 540;
+		var y = 360;
 
 		var timer = new FlxTimer().start(2, function myCallback(Timer:FlxTimer):Void{
 
@@ -172,10 +187,10 @@ class PlayState extends FlxState{
 			var op = random.int(0, 3);
 			
 			switch op{
-				case 0: zombis.add(new Zombie(  -(x+c1)   ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this , 10, 10, 128, 10  ));
-				case 1: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))    ,   y+c2, this , 10 , 10 , 128 , 10  ));
-				case 2: zombis.add(new Zombie(    x+c1    ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this, 10, 10, 128 ,10 ));
-				case 3: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))   ,   -(y+c2),  this,  10, 10, 128 , 10	));
+				case 0: zombis.add(new Zombie(  -(x+c1)   ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this , 10, 10, 128, 10, 60));
+				case 1: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))    ,   y+c2, this , 10 , 10 , 128 , 10, 60));
+				case 2: zombis.add(new Zombie(    x+c1    ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this, 10, 10, 128 ,10, 60));
+				case 3: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))   ,   -(y+c2),  this,  10, 10, 128 , 10,	60));
 			}
 		}, Math.round((Math.sin(waveNumber) + waveNumber)*Math.sqrt(waveNumber)));
 	}
@@ -205,8 +220,29 @@ class PlayState extends FlxState{
 		zombis.remove(c);
 	}
 
-	private function waveCompleted() {
-		
+	private function waveCompleted():Void {
+		waveNumber = waveNumber + 1;
+		announcementText = new FlxText(0, 0, 0, "Wave Completed", 16);
+		announcementText.screenCenter();
+		announcementText.scrollFactor.set(0, 0);
+		add(announcementText);
+		var timer1 = new FlxTimer().start(8, function myCallback(Timer:FlxTimer):Void {
+			remove(announcementText);
+		}, 1);
+		var timer2 = new FlxTimer().start(10, function myCallback(Timer:FlxTimer):Void {
+			startWave();
+		}, 1);
+	}
+
+	private function startWave():Void {
+		announcementText = new FlxText(0, 0, 0, "Wave " + Std.string(waveNumber), 16);
+		announcementText.screenCenter();
+		announcementText.scrollFactor.set(0, 0);
+		add(announcementText);
+		var timer = new FlxTimer().start(5, function myCallback(Timer:FlxTimer):Void {
+			remove(announcementText);
+		}, 1);
+		spawnZombie(24,24);
 	}
 
 }

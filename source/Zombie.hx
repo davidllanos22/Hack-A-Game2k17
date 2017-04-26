@@ -18,8 +18,10 @@ class Zombie extends FlxSprite{
     private var yy:Float;
     private var player:Player;
     private var target:FlxSprite;
+    public var attackCooldown:Int;
+    public var attackWaitTime:Int;
 
-	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float,damage:Int) {
+	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float,damage:Int, attackCooldown:Int) {
         super(x, y);
         trace("spawn");
         setSize(32, 32);
