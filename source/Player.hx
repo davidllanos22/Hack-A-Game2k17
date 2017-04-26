@@ -145,8 +145,8 @@ class Player extends FlxSprite {
 	}
 
 	public function gunShoot():Void {
-		var shotOffset = FlxAngle.getCartesianCoords(Math.sqrt(281), angle - 110);
-		var bullet = new Bullet(x + shotOffset.x + 8, y + shotOffset.y + 8, angle - 90);
+		var shotOffset = FlxAngle.getCartesianCoords(Math.sqrt(2529./64.), angle - 220);
+		var bullet = new Bullet(x + shotOffset.x, y + shotOffset.y, angle - 90);
 		playState.bullets.add(bullet);
 	}
 
