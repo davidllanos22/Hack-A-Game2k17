@@ -47,6 +47,8 @@ class PlayState extends FlxState{
 		add(analog);
 		add(button1);
 		add(button2);
+		add(player);
+		add(player.aim);
 
 		FlxG.camera.follow(player.aim, TOPDOWN, 1);
 	}
