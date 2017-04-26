@@ -45,8 +45,6 @@ class PlayState extends FlxState{
 
 	private static inline var SPEED:Float = 2;
 
-	public var debugText:FlxText;
-
 	override public function create():Void{
 		super.create();
 
@@ -60,9 +58,11 @@ class PlayState extends FlxState{
 		analog = new FlxAnalog(60, FlxG.height - 60, 50, 0);
 		//button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20, this);
 		button1 = new FlxButton(FlxG.width - 90, FlxG.height - 50,"1");
+		button1.loadGraphic("assets/images/button.png");
 		button1.setSize(50,50);
 		//button2 = new Button(FlxG.width - 50, FlxG.height - 90, 20, this);
 		button2 = new FlxButton(FlxG.width - 50, FlxG.height - 90,"2");
+		button2.loadGraphic("assets/images/button.png");
 		button2.setSize(50,50);
 		inventory = new Inventory();
 
@@ -85,8 +85,6 @@ class PlayState extends FlxState{
 		trace("cancreate: " + inventory.canCreate(Item.WOOD_WALL));
 
 		inventory.createItem(Item.WOOD_WALL);
-		debugText = new FlxText(0, 20, 0, "Debug", 8);
-		debugText.scrollFactor.set(0, 0);
 
         sndVictory = FlxG.sound.load(AssetPaths.waveEnd__wav);
 		zombis = new FlxSpriteGroup();

@@ -158,7 +158,8 @@ class Player extends FlxSprite {
 				if (y > 480) y = 480;
 			}
 		#end
-		if(FlxG.collide(this,playState.obstacles)){
+
+		if(FlxG.collide(this, playState.obstacles)){
 			velocity.set(0,0);
 		}
 
@@ -170,6 +171,13 @@ class Player extends FlxSprite {
 		var shotOffset = FlxAngle.getCartesianCoords(Math.sqrt(281), angle - 220);
 		var bullet = new Bullet(x + shotOffset.x, y + shotOffset.y, angle - 90);
 		sndShot.play();
+
+		// var muzzleFlash = new FlxSprite(x + shotOffset.x + 8, y + shotOffset.y + 8);
+		// muzzleFlash.loadGraphic(AssetPaths.tiles__png, true, 16, 16);
+  //       muzzleFlash.animation.add("muzzle", [33,34,35], 8);
+  //       muzzleFlash.animation.play("muzzle");
+  //       muzzleFlash.angle = angle - 90;
+		// playState.add(muzzleFlash);
 
 		playState.bullets.add(bullet);
 	}
