@@ -3,6 +3,8 @@ package;
 import Math;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
+import flixel.math.FlxAngle;
+import flixel.math.FlxPoint;
 
 class Player extends FlxSprite {
 	
@@ -14,6 +16,8 @@ class Player extends FlxSprite {
 	public var baseFirerate:Float;
 	public var firerateMultiplier:Float;
 	public var fireWaitTime:Float;
+
+	public var aim:flixel.FlxSprite;
 
 	public function new(x:Float, y:Float, playState:PlayState, baseSpeed:Float, baseFirerate:Float) {
 		super(x, y);
@@ -31,6 +35,9 @@ class Player extends FlxSprite {
 		this.baseFirerate = baseFirerate;
 		this.firerateMultiplier = 1;
 		this.fireWaitTime = 0;
+
+		aim = new flixel.FlxSprite(x+50,y);
+		aim.makeGraphic(2, 2, FlxColor.RED);
 	}
 
 	override public function update(elapsed:Float) {
@@ -51,7 +58,11 @@ class Player extends FlxSprite {
 		var button2 = playState.button2;
 
 		if(button1.pressed) {}
-		else {angle = analog.getAngle();}
+		else {
+			angle = analog.getAngle();
+			flixel.math.FlxPoint
+			aim.super(flixel.math.FlxAngle())
+		}
 		
 		if(Math.pow(analog.acceleration.x, 2) + Math.pow(analog.acceleration.y, 2) > 441) {
 			x = x + (analog.acceleration.x * baseSpeed * speedMultiplier / 42);
