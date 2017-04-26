@@ -44,7 +44,5 @@ class Button extends FlxSprite {
 		if(Math.pow(FlxG.mouse.screenX - x, 2) + Math.pow(FlxG.mouse.screenY - y, 2) <= Math.pow(radius, 2)) {pressed = true;}
 
 		#end
-
-		trace(pressed);
 	}
 }

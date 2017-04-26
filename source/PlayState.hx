@@ -70,8 +70,6 @@ class PlayState extends FlxState{
 	}
 
 	override public function update(elapsed:Float):Void{
-		trace(analog.acceleration);
-
 		super.update(elapsed);
 
 		for(o in obstacles){
@@ -86,6 +84,7 @@ class PlayState extends FlxState{
 		for(z in zombis){
 			for(b in bullets){
 				if(FlxG.pixelPerfectOverlap(b,z)){
+					trace("hit");
 					hitBulletZombie(cast(b,Bullet),cast(z,Zombie));
 					break;
 				}
@@ -94,11 +93,18 @@ class PlayState extends FlxState{
 
 		for(z in zombis){
 			for(o in obstacles){
-				if(FlxG.pixelPerfectOverlap(cast(o,Obstacle),cast(z,Zombie))){
+				if(FlxG.pixelPerfectOverlap(o,z)){
 					hitObstacleZombie(cast(o,Obstacle),cast(z,Zombie));
 					break;
 				}
 			}
+		}
+
+		for(z in zombis){
+			if(FlxG.pixelPerfectOverlap(z, player)){
+					hitPlayerZombi(cast(z,Zombie));
+					break;
+				}
 		}
 
 		/*t += 0.1;
@@ -110,7 +116,7 @@ class PlayState extends FlxState{
 	private function hitBulletZombie(b:Bullet,z:Zombie):Void{
 		bullets.remove(b);
 		b.kill();
-
+		trace("disparo colisiona");
 		z.getHit(b.damage);
 		if(z.life<=0){
 			zombis.remove(z);

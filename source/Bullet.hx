@@ -13,6 +13,7 @@ class Bullet extends FlxSprite{
 
 	public function new (x: Float, y: Float, angle: Float){
 		super(x, y);
+		setSize(8,8);
 		this._rAngle = angle;
 		//Cargar sprite y animación.
 	}

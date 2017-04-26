@@ -19,16 +19,16 @@ class Zombie extends FlxSprite{
     private var player:Player;
     private var target:FlxSprite;
 
-	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float,damage:Float) {
+	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float,damage:Int) {
         super(x, y);
         trace("spawn");
-        setSize(16, 16);
-        makeGraphic(16, 16, FlxColor.RED);
+        setSize(32, 32);
         this.ps = ps;
         this.life = life;
         this.speed = speed;
         this.tolerance = tolerance;
         this.player = ps.player;
+        this.damage = damage;
 
         target = ps.family;
 

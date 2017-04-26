@@ -8,7 +8,7 @@ import flixel.math.FlxMath;
 class ZombieCreeper extends Zombie{
 	public var rad:Float;
 
-	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float, damage:Float, r:Float) {
+	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float, damage:Int, r:Float) {
 		super(x, y, ps, life, speed, tolerance, damage);
 		rad = r;
 		setSize(16, 16);

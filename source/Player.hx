@@ -89,10 +89,10 @@ class Player extends FlxSprite {
 
 	public function gunShoot():Void {
 		var bullet = new Bullet(x - 5, y - 16, angle - 90);
-		playState.add(bullet);
+		playState.bullets.add(bullet);
 	}
 
 	public function getHit(damage:Int){
-		life-=damage;
+		life -= damage;
 	}
 }
