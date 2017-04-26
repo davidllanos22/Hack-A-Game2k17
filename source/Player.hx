@@ -122,6 +122,7 @@ class Player extends FlxSprite {
 		var button1 = playState.button1;
 		var button2 = playState.button2;
 
+
 		#if mobile
 			if(!button1.pressed) angle = analog.getAngle() + 90;
 
@@ -166,8 +167,11 @@ class Player extends FlxSprite {
 			velocity.set(0,0);
 		}
 
+		trace(analog.acceleration);
+		moving = (Math.pow(analog.acceleration.x, 2) + Math.pow(analog.acceleration.y, 2)) > 441;
+
 		if(moving) animation.play("player_walk");
-		else animation.play("player_walk");
+		else animation.play("player_stand");
 	}
 
 	public function gunShoot():Void {

@@ -32,17 +32,23 @@ class Obstacle extends FlxSprite{
 
         if(invItem) {
             if(item == Item.STONE_WALL) {
-                makeGraphic(sizeX, sizeY, FlxColor.RED);
+                loadGraphic(AssetPaths.sprites__png, true, 32, 32);
+                animation.add("obstacle", [26], 8);
+                animation.play("obstacle");
             }
             else if(item == Item.WOOD_BARRICADE) {
-                makeGraphic(sizeX, sizeY, FlxColor.RED);
+                  loadGraphic(AssetPaths.sprites__png, true, 32, 32);
+                animation.add("obstacle", [25], 8);
+                animation.play("obstacle");
             }
             else if(item == Item.WOOD_WALL) {
-                makeGraphic(sizeX, sizeY, FlxColor.RED);
+                  loadGraphic(AssetPaths.sprites__png, true, 32, 32);
+                animation.add("obstacle", [24], 8);
+                animation.play("obstacle");
             }
         }
         else {
-            makeGraphic(sizeX, sizeY, FlxColor.RED);
+            makeGraphic(sizeX, sizeY, FlxColor.GRAY);
         }
     }
 
