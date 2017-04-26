@@ -44,7 +44,7 @@ class Zombie extends FlxSprite{
         movement(d,tolerance);
     }
     
-    public function hurt(q:Float):Void{
+    public function getHit(q:Float):Void{
         life-=q;
     }
 
