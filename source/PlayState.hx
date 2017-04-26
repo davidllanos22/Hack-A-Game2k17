@@ -8,11 +8,15 @@ import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.math.FlxPoint;
+import flixel.group.FlxSpriteGroup;
 
 class PlayState extends FlxState{
 	private var text:FlxText;
 	private var position:FlxPoint = new FlxPoint();
 	private var t:Float = 0;
+	private var zombis:FlxSpriteGroup;
+	private var obstacles:FlxSpriteGroup;
+	private var bullets:FlxSpriteGroup;
 
 	private static inline var SPEED:Float = 2;
 
@@ -26,9 +30,36 @@ class PlayState extends FlxState{
 
 	override public function update(elapsed:Float):Void{
 		super.update(elapsed);
-		t += 0.1;
+		FlxG.pixelPerfectOverlap(bullets,zombis,hitBullet);
+		FlxG.pixelPerfectOverlap(obstacles,zombis,hitObstacle);
+		/*t += 0.1;
 		position.add(SPEED, 0);
 		if(position.x > FlxG.camera.width) position.x = - 120;
-		text.setPosition(position.x, position.y + Math.cos(t) * 10);
+		text.setPosition(position.x, position.y + Math.cos(t) * 10);*/
+	}
+
+	private function hitBullet(b:Bullet,z:Zombie){
+		bullets.remove(b);
+		b.kill();
+
+		z.getHit(b.damage);
+		if(z.life<=0){
+			zombis.remove(z);
+			z.kill();
+		}
+	}
+
+	private function hitObstacle(o:Obstacle,z:Zombie){
+		o.getHit(z.damage);
+		if(o.life<=0){
+			obstacles.remove(o);
+			o.kill();
+		}
+
+		z.getHit(o.damage);
+		if(z.life<=0){
+			zombis.remove(z);
+			z.kill();
+		}
 	}
 }
