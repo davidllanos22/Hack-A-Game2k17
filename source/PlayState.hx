@@ -61,23 +61,24 @@ class PlayState extends FlxState{
 			}
 		}
 
-		/*for(z in zombis){
+		for(z in zombis){
 			for(b in bullets){
 				if(FlxG.pixelPerfectOverlap(b,z)){
-					hitBulletZombie(b,z);
+					hitBulletZombie(cast(b,Bullet),cast(z,Zombie));
 					break;
 				}
 			}
-		}*/
+		}
 
-		/*for(z in zombis){
+		for(z in zombis){
 			for(o in obstacles){
-				if(FlxG.pixelPerfectOverlap(o,z)){
-					hitObstacleZombie(o,z);
+				if(FlxG.pixelPerfectOverlap(cast(o,Obstacle),cast(z,Zombie))){
+					hitObstacleZombie(cast(o,Obstacle),cast(z,Zombie));
 					break;
 				}
 			}
-		}*/
+		}
+
 		/*t += 0.1;
 		position.add(SPEED, 0);
 		if(position.x > FlxG.camera.width) position.x = - 120;
@@ -95,22 +96,22 @@ class PlayState extends FlxState{
 		}
 	}
 
-	/*private function hitObstacleZombie(o:Obstacle,z:Zombie):Void{
+	private function hitObstacleZombie(o:Obstacle,z:Zombie):Void{
 		o.getHit(z.damage);
 		if(o.life<=0){
 			obstacles.remove(o);
 			o.kill();
 		}
-		if(Type.typeof(z)=="ZombieCreeper"){
-			hitObstacleCreeper(z);
-		}else{
+		/*if(Type.getClassName(z)=="ZombieCreeper"){
+			hitObstacleCreeper(cast(z,ZombieCreeper));
+		}else{*/
 			z.getHit(o.damage);
 			if(z.life<=0){
 				zombis.remove(z);
 				z.kill();
 			}
-		}
-	}*/
+		//}
+	}
 
 	/*private function hitPlayerZombi(z:Zombie):Void{
 		player.getHit(z.damage);
