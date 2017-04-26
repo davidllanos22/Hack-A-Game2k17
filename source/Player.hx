@@ -111,11 +111,15 @@ class Player extends FlxSprite {
 		var p = FlxAngle.getCartesianCoords(100, angle - 90);
 		aim.x = p.x + this.x + 16;
 		aim.y = p.y + this.y + 16;
+
 		if(Math.pow(analog.acceleration.x, 2) + Math.pow(analog.acceleration.y, 2) > 441) {
 			x = x + (analog.acceleration.x * baseSpeed * speedMultiplier / 42);
 			y = y + (analog.acceleration.y * baseSpeed * speedMultiplier / 42);
+			if(FlxG.collide(this,playState.obstacles)){
+			trace("asdf");
+			velocity.set(0,0);
+			}
 		}
-
 	}
 
 	public function gunShoot():Void {

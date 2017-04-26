@@ -67,7 +67,7 @@ class PlayState extends FlxState{
 
 		add(new FlxSprite(0, 0, AssetPaths.bg__png));
 		
-		obstacles.add(new Obstacle(4,4,4,4,10,0));
+		obstacles.add(new Obstacle(100,100,50,50,10,0));
 
 		add(zombis);
 		add(obstacles);
