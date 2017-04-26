@@ -16,6 +16,7 @@ import flixel.math.FlxRandom;
 import flixel.util.FlxColor;
 import flixel.ui.FlxBar;
 import flixel.system.FlxSound;
+import flixel.system.scaleModes.RatioScaleMode;
 
 class PlayState extends FlxState{
 	public var text:FlxText;
@@ -35,14 +36,13 @@ class PlayState extends FlxState{
 	public var announcementText:FlxText;
 	public var greenBar:FlxBar;
 	public var yellowBar:FlxBar;
-	
 
 	private static inline var SPEED:Float = 2;
 
 	override public function create():Void{
 		super.create();
 
-		analog = new FlxAnalog(60, FlxG.height - 60, 50, 0);
+		analog = new FlxAnalog(60, FlxG.height - 30, 10, 0);
 		button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20);
 		button2 = new Button(FlxG.width - 50, FlxG.height - 90, 20);
 
@@ -53,6 +53,8 @@ class PlayState extends FlxState{
 		analog.alpha = 0.5;
 		button1.alpha = 0.5;
 		button2.alpha = 0.5;
+
+		FlxG.scaleMode = new RatioScaleMode(false);
 
 		// analog.scale.x = 0.5;
 		// analog.scale.y = 0.5;
