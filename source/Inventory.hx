@@ -51,6 +51,10 @@ class Inventory {
 		items[item] += 1;
 	}
 
+	public function removeItem(item:Item){
+		items[item] -= 1;
+	}
+
 	public function getQuantity(it:Item):Int{
 		return items[it];
 	}

@@ -186,13 +186,31 @@ class CraftMenu extends FlxSubState{
 
 	}
 
-	public function place():Void {
+	public function placeSW():Void {
+		playState.placeSW();
+		close();
+	}
 
+	public function placeWB():Void {
+		playState.placeWB();
+		close();
+	}
+
+	public function placeWW():Void {
+		playState.placeWW();
+		close();
 	}
 
 	public function newtWave():Void {
+		playState.putObject = false;
 		playState.startWave();
 		FlxG.sound.playMusic(AssetPaths.battle__wav, 0.5, true);
+		playState.button1.text = "Shoot";
+		playState.button2.text = "SubWeapon";
+		playState.button1.active = true;
+		playState.button1.alpha = 1;
+		playState.button2.active = true;
+		playState.button1.alpha = 1;
 		close();
 
 	}
@@ -272,6 +290,18 @@ class CraftMenu extends FlxSubState{
 		}
 		equipButton.alpha = 0.3;
 		equipButton.active = false;
+	}
+
+	public function place():Void {
+		if(sB1.active) {
+			placeSW();
+		}
+		else if(sB2.active) {
+			placeWB();
+		}
+		else if(sB3.active) {
+			placeWW();
+		}
 	}
 
 }

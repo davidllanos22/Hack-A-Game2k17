@@ -18,6 +18,8 @@ import flixel.ui.FlxBar;
 import flixel.system.FlxSound;
 import flixel.system.scaleModes.RatioScaleMode;
 import Inventory;
+import flixel.input.touch.FlxTouch;
+import flixel.input.touch.FlxTouchManager;
 
 class PlayState extends FlxState{
 	public var text:FlxText;
@@ -43,6 +45,8 @@ class PlayState extends FlxState{
 	private var sndVictory:FlxSound;
 	private var sndDeath:FlxSound;
 	private var sndGrunt:FlxSound;
+	public var putObject:Bool;
+	public var el:Item;
 
 	private static inline var SPEED:Float = 2;
 
@@ -337,14 +341,84 @@ class PlayState extends FlxState{
 	private function createBuilding(x:Int, y:Int){
 		var i:Int;
 		for(i in 0...8){
-			obstacles.add(new Obstacle(x+i*16,y,16,5,10,0));//UP
-			if(i!=3 && i!=4)obstacles.add(new Obstacle(x+i*16,5+y+4*16,16,5,10,0));//DOWN
+			obstacles.add(new Obstacle(x+i*16,y,16,5,10,0, null, null, 0, false));//UP
+			if(i!=3 && i!=4)obstacles.add(new Obstacle(x+i*16,5+y+4*16,16,5,10,0, null, null, 0, false));//DOWN
 		}
 		for(i in 0...4){
-			obstacles.add(new Obstacle(x,5+y+i*16,5,16,10,0));//LEFT
-			obstacles.add(new Obstacle(x-5+16*8,5+y+i*16,5,16,10,0));//RIGHT
+			obstacles.add(new Obstacle(x,5+y+i*16,5,16,10,0, null, null, 0, false));//LEFT
+			obstacles.add(new Obstacle(x-5+16*8,5+y+i*16,5,16,10,0, null, null, 0, false));//RIGHT
 		}
 		
+	}
+
+	public function placeSW() {
+		putObject = true;
+		button1.text = "Place";
+		button1.active = true;
+		button2.text = "Quit";
+		el = Item.STONE_WALL;
+ 	}
+
+ 	public function placeWB() {
+		putObject = true;
+		button1.text = "Place";
+		button1.active = true;
+		button2.text = "Quit";
+		el = Item.WOOD_BARRICADE;
+	}
+
+	public function placeWW() {
+		putObject = true;
+		button1.text = "Place";
+		button1.active = true;
+		button2.text = "Quit";
+		el = Item.WOOD_WALL;
+	}
+
+	public function placeAttempt() {
+		if(putObject) {
+			var life:Int;
+			var dmg:Int;
+			switch(el) {
+            	case STONE_WALL:
+            		life = 400;
+            		dmg = 0;
+            	case WOOD_BARRICADE:
+            		life = 200;
+            		dmg = 25;
+            	case WOOD_WALL:
+            		life = 300;
+            		dmg = 0;
+            	default:
+            		life = 100;
+            		dmg = 0;
+       		}
+			var obs = new Obstacle(player.aim.x, player.aim.y, 32, 32,life, dmg, el, null, player.angle, true);
+			var trobat = false;
+			for (obst in obstacles) {
+				trobat = trobat || (FlxG.pixelPerfectOverlap(obs,obst));
+			}
+			trobat = trobat || FlxG.pixelPerfectOverlap(obs, family);
+			if(trobat) {
+				obs.kill;
+			}
+			else {
+				add(obs);
+				obstacles.add(obs);
+				inventory.removeItem(el);
+				if(inventory.getQuantity(el) == 0) {
+					button1.active = false;
+					button1.alpha = 0.3;
+				}
+			}
+		}
+	}
+
+	public function stopPlacing() {
+		if(putObject) {
+			var sub = new CraftMenu(inventory, this, FlxColor.GRAY);
+			openSubState(sub);
+		}
 	}
 
 }
