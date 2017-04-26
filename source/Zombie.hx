@@ -18,7 +18,7 @@ class Zombie extends FlxSprite{
     private var yy:Float;
     private var player:Player;
 
-	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float, player:PLayer,damage:Float) {
+	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float, player:Player,damage:Float) {
         super(x, y);
         setSize(16, 16);
         makeGraphic(16, 16, FlxColor.RED);
@@ -26,7 +26,7 @@ class Zombie extends FlxSprite{
         this.life = life;
         this.speed = speed;
         this.tolerance = tolerance;
-        this.player = ps.PLayer;
+        this.player = ps.Player;
 
         /*loadGraphic(AssetPaths.sprites__png, true, 16, 16);
         animation.add("zombie", [0], 5);
@@ -40,7 +40,7 @@ class Zombie extends FlxSprite{
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
-        dPLayer = distanceBetween(this,ps.player);
+        dPLayer = FlxMath.distanceBetween(this,ps.player);
         movement(d,tolerance);
     }
     

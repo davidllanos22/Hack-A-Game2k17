@@ -9,13 +9,6 @@ class Enemy extends FlxSprite{
 	public var life:Int;
 	public var damage:Int;
 
-	public function new(x:Float, y:Float, sizeX:Int, sizeY:Int, life:Int) {
-        super(x, y);
-        setSize(sizeX,sizeY);
-        this.life=life;
-        this.damage=0;
-    }
-
     public function new(x:Float, y:Float, sizeX:Int, sizeY:Int, life:Int, damage:Int) {
         super(x, y);
         setSize(sizeX,sizeY);

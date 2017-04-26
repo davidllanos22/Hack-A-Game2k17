@@ -10,29 +10,39 @@ import flixel.text.FlxText;
 import flixel.math.FlxPoint;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxCamera;
+import flixel.ui.FlxAnalog;
 
 class PlayState extends FlxState{
-	private var text:FlxText;
-	private var position:FlxPoint = new FlxPoint();
-	private var t:Float = 0;
-	private var player:Player;
-	private var zombis:FlxSpriteGroup;
-	private var obstacles:FlxSpriteGroup;
-	private var bullets:FlxSpriteGroup;
-	private var family:FlxSpriteGroup;
+	public var text:FlxText;
+	public var position:FlxPoint = new FlxPoint();
+	public var t:Float = 0;
+	public var player:Player;
+	public var zombis:FlxSpriteGroup;
+	public var obstacles:FlxSpriteGroup;
+	public var bullets:FlxSpriteGroup;
+	public var family:FlxSpriteGroup;
+	public var analog:FlxAnalog;
+	public var button1:Button;
+	public var button2:Button;
 
 	private static inline var SPEED:Float = 2;
 
 	override public function create():Void{
 		super.create();
-		text = new FlxText(0, 0, 0, "Hello World", 16);
-		text.screenCenter();
-		text.getPosition().copyTo(position);
-		add(text);
+
+		analog = new FlxAnalog(60, 180, 50, 0);
+		button1 = new Button(20, 20, 10);
+		button2 = new Button(60, 60, 10);
+		add(analog);
+		add(button1);
+		add(button2);
+
 		FlxG.camera.follow(player, TOPDOWN, 1);
 	}
 
 	override public function update(elapsed:Float):Void{
+		trace(analog.acceleration);
+
 		super.update(elapsed);
 		FlxG.pixelPerfectOverlap(bullets,zombis,hitBulletZombi);
 		FlxG.pixelPerfectOverlap(obstacles,zombis,hitObstacleZombi);
