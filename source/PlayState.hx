@@ -130,6 +130,11 @@ class PlayState extends FlxState{
 	override public function update(elapsed:Float):Void{
 		super.update(elapsed);
 
+		FlxG.camera.maxScrollX = 1080;
+		FlxG.camera.minScrollX = 0;
+		FlxG.camera.maxScrollY = 720;
+		FlxG.camera.minScrollY = 0;
+
 		for(o in obstacles){
 			for(b in bullets){
 				if(FlxG.pixelPerfectOverlap(o,b)){
