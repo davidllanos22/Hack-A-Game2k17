@@ -44,7 +44,7 @@ class PlayState extends FlxState{
 	override public function create():Void{
 		super.create();
 
-		analog = new FlxAnalog(60, FlxG.height - 30, 10, 0);
+		analog = new FlxAnalog(60, FlxG.height - 60, 50, 0);
 		button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20);
 		button2 = new Button(FlxG.width - 50, FlxG.height - 90, 20);
 		inventory = new Inventory();
@@ -93,8 +93,6 @@ class PlayState extends FlxState{
 
 		FlxG.camera.follow(player.aim, TOPDOWN, 1);
 		FlxG.camera.followLerp = 5 / FlxG.updateFramerate;
-
-
 	}
 
 	override public function update(elapsed:Float):Void{
