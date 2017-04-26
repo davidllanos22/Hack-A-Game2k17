@@ -102,9 +102,9 @@ class PlayState extends FlxState{
 
 		for(z in zombis){
 			if(FlxG.pixelPerfectOverlap(z, player)){
-					hitPlayerZombi(cast(z,Zombie));
-					break;
-				}
+				hitPlayerZombi(cast(z,Zombie));
+				break;
+			}
 		}
 
 		/*t += 0.1;
@@ -194,6 +194,10 @@ class PlayState extends FlxState{
 			}
 		}
 		zombis.remove(c);
+	}
+
+	private function waveCompleted() {
+		
 	}
 
 }
