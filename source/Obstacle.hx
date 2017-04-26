@@ -12,8 +12,10 @@ class Obstacle extends FlxSprite{
     public function new(x:Float, y:Float, sizeX:Int, sizeY:Int, life:Int, damage:Int) {
         super(x, y);
         setSize(sizeX,sizeY);
+        makeGraphic(4, 4, FlxColor.RED);
         this.life=life; 
-        this.damage=damage;   
+        this.damage=damage;
+        immovable=true;   
     }
 
     override public function update(elapsed:Float):Void {
