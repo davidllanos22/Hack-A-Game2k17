@@ -102,11 +102,14 @@ class PlayState extends FlxState{
 			obstacles.remove(o);
 			o.kill();
 		}
-
-		z.getHit(o.damage);
-		if(z.life<=0){
-			zombis.remove(z);
-			z.kill();
+		if(Type.typeof(z)=="ZombieCreeper"){
+			hitObstacleCreeper(z);
+		}else{
+			z.getHit(o.damage);
+			if(z.life<=0){
+				zombis.remove(z);
+				z.kill();
+			}
 		}
 	}
 
@@ -138,4 +141,14 @@ class PlayState extends FlxState{
 
 	}
 
+
+	private function hitObstacleCreeper(c:ZombieCreeper){
+		c.allahuAkbar();
+		for (x in obstacles){
+			if (c.rad > distanceBetween(c, x)){
+				obstacles.remove(x);
+			}
+		}
+		zombis.remove(c);
+	}
 }
