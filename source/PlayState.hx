@@ -52,7 +52,7 @@ class PlayState extends FlxState{
 
 		inventory = new Inventory();
 		var sub = new CraftMenu(inventory, this, FlxColor.GRAY);
-		openSubState(sub);
+		//openSubState(sub);
 
 		if (FlxG.sound.music == null){
 			FlxG.sound.playMusic(AssetPaths.battle__wav, 0.5, true);
@@ -95,40 +95,17 @@ class PlayState extends FlxState{
 		bars = new FlxSpriteGroup();
 
 		family = new Family(125, 50, 10, 1);
-		player = new Player(0, 0, this, 2.5, 5);
+		player = new Player(144, 122, this, 2.5, 5);
         sndGrunt = FlxG.sound.load(AssetPaths.zombieGrunt__wav);
         sndDeath = FlxG.sound.load(AssetPaths.enemyDeath__wav);
 
 
 		add(new FlxSprite(0, 0, AssetPaths.bg__png));
 
-		//Up
-		obstacles.add(new Obstacle(80,27,16,5,10,0));
-		obstacles.add(new Obstacle(96,27,16,5,10,0));
-		obstacles.add(new Obstacle(112,27,16,5,10,0));
-		obstacles.add(new Obstacle(128,27,16,5,10,0));
-		obstacles.add(new Obstacle(144,27,16,5,10,0));
-		obstacles.add(new Obstacle(160,27,16,5,10,0));
-		obstacles.add(new Obstacle(176,27,16,5,10,0));
-		
-		//Left
-		obstacles.add(new Obstacle(80,32,5,16,10,0));
-		obstacles.add(new Obstacle(80,48,5,16,10,0));
-		obstacles.add(new Obstacle(80,64,5,16,10,0));
-		obstacles.add(new Obstacle(80,80,5,16,10,0));
-
-		//Down
-		obstacles.add(new Obstacle(80,96,20,5,10,0));
-		obstacles.add(new Obstacle(96,96,16,5,10,0));
-		obstacles.add(new Obstacle(112,96,16,5,10,0));
-		obstacles.add(new Obstacle(128,96,16,5,10,0));
-		obstacles.add(new Obstacle(144,96,16,5,10,0));
-		obstacles.add(new Obstacle(160,96,16,5,10,0));
-		obstacles.add(new Obstacle(176,96,16,5,10,0));
-
-		//Right
-		
-
+		createBuilding(80,27);
+		createBuilding(400,27);
+		createBuilding(80,267);
+		createBuilding(400,267);
 
 		add(zombis);
 		add(obstacles);
@@ -343,6 +320,19 @@ class PlayState extends FlxState{
 
 	private function playBattle(){
 		FlxG.sound.playMusic(AssetPaths.battle__wav, 0.5, true);
+	}
+
+	private function createBuilding(x:Int, y:Int){
+		var i:Int;
+		for(i in 0...8){
+			obstacles.add(new Obstacle(x+i*16,y,16,5,10,0));//UP
+			if(i!=3 && i!=4)obstacles.add(new Obstacle(x+i*16,5+y+4*16,16,5,10,0));//DOWN
+		}
+		for(i in 0...4){
+			obstacles.add(new Obstacle(x,5+y+i*16,5,16,10,0));//LEFT
+			obstacles.add(new Obstacle(x-5+16*8,5+y+i*16,5,16,10,0));//RIGHT
+		}
+		
 	}
 
 }

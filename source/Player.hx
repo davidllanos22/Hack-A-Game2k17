@@ -130,7 +130,7 @@ class Player extends FlxSprite {
 				if (x <= 1080 && x >= 0){
 					x = x + (analog.acceleration.x * baseSpeed * speedMultiplier / 42);
 				}
-				if (y <= 720 && y >= 0){}
+				if (y <= 720 && y >= 0){
 					y = y + (analog.acceleration.y * baseSpeed * speedMultiplier / 42);
 				}
 				if (x < 0) x = 0;
@@ -149,7 +149,7 @@ class Player extends FlxSprite {
 				if (x <= 1080 && x >= 0){
 					x = x + (analog.acceleration.x * baseSpeed * speedMultiplier / 42);
 				}
-				if (y <= 720 && y >= 0){}
+				if (y <= 720 && y >= 0){
 					y = y + (analog.acceleration.y * baseSpeed * speedMultiplier / 42);
 				}
 				if (x < 0) x = 0;
