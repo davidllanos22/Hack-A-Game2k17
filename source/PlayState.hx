@@ -25,6 +25,7 @@ class PlayState extends FlxState{
 	public var analog:FlxAnalog;
 	public var button1:Button;
 	public var button2:Button;
+	public var waveNumber:Int;
 
 	private static inline var SPEED:Float = 2;
 
@@ -36,14 +37,14 @@ class PlayState extends FlxState{
 		button2 = new Button(60, 60, 10);
 		zombis = new FlxSpriteGroup();
 		obstacles = new FlxSpriteGroup();
-		
 		this.bullets = new FlxSpriteGroup();
 		family = new Family(0,0,10,1);
+		waveNumber = 1;
 		add(analog);
 		add(button1);
 		add(button2);
 
-		FlxG.camera.follow(player, TOPDOWN, 1);
+		FlxG.camera.follow(player.aim, TOPDOWN, 1);
 	}
 
 	override public function update(elapsed:Float):Void{
@@ -123,21 +124,35 @@ class PlayState extends FlxState{
 		var y = FlxG.height/2;
 
 		var timer = new FlxTimer().start(t, function myCallback(Timer:FlxTimer):Void{
+
+	//Fórmula Zombies normales: (sin(x) + x) · sqrt(x)
+	private function spawnZombie(x:Float,y:Float):Void{
+		var x = FlxG.width/2;
+		var y = FlxG.height/2;
+
+		timer = new FlxTimer().start(2, function myCallback(Timer:FlxTimer):Void{
+
 			var random = new FlxRandom();
 			var op = random.int(0, 3);
 			switch op{
-				case 0: obstacleGroup.add(new Enemy(  -(x+c1)   ,   -(y+c2) + random.float(0,1)*(2*(y+c2))    ));
-				case 1: obstacleGroup.add(new Enemy(  -(x+c1) + random.float(0,1)*(2*(x+c1))    ,   y+c2   ));
-				case 2: obstacleGroup.add(new Enemy(    x+c1    ,   -(y+c2) + random.float(0,1)*(2*(y+c2))    ));
-				case 3: obstacleGroup.add(new Enemy(  -(x+c1) + random.float(0,1)*(2*(x+c1))   ,   -(y+c2)    ));
+				case 0: obstacleGroup.add(new Zombie(  -(x+c1)   ,   -(y+c2) + random.float(0,1)*(2*(y+c2))    ));
+				case 1: obstacleGroup.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))    ,   y+c2   ));
+				case 2: obstacleGroup.add(new Zombie(    x+c1    ,   -(y+c2) + random.float(0,1)*(2*(y+c2))    ));
+				case 3: obstacleGroup.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))   ,   -(y+c2)    ));
 			}
 			
+
 		}, 0);
 	}*/
+
+		}, (Math.sin(waveNumber) + waveNumber)*Math.sqrt(waveNumber));
+	}
+
 
 	private function spawnObject(x:Float,y:Float):Void{
 
 	}
+
 
 
 	/*private function hitObstacleCreeper(c:ZombieCreeper){
@@ -149,4 +164,5 @@ class PlayState extends FlxState{
 		}
 		zombis.remove(c);
 	}*/
+
 }
