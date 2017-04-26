@@ -40,11 +40,7 @@ class PlayState extends FlxState{
 	public var announcementText:FlxText;
 	public var greenBar:FlxBar;
 	public var yellowBar:FlxBar;
-<<<<<<< Updated upstream
-=======
 	public var inventory:Inventory;
-	
->>>>>>> Stashed changes
 
 	private static inline var SPEED:Float = 2;
 
