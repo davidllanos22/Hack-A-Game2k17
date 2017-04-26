@@ -34,8 +34,11 @@ class PlayState extends FlxState{
 		super.create();
 
 		analog = new FlxAnalog(60, 180, 50, 0);
-		button1 = new Button(20, 20, 10);
-		button2 = new Button(60, 60, 10);
+		analog.scrollFactor.set(0, 0);
+		button1 = new Button(240, 200, 10);
+		button1.scrollFactor.set(0, 0);
+		button2 = new Button(280, 160, 10);
+		button2.scrollFactor.set(0, 0);
 		zombis = new FlxSpriteGroup();
 		obstacles = new FlxSpriteGroup();
 		this.bullets = new FlxSpriteGroup();

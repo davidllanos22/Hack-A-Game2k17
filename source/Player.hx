@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
+import flixel.FlxG;
 
 class Player extends FlxSprite {
 	
@@ -43,11 +44,25 @@ class Player extends FlxSprite {
 	override public function update(elapsed:Float) {
 		movement();
 
-		if(fireWaitTime != 0) {fireWaitTime = fireWaitTime - (1 / 60);}
-		if(fireWaitTime <= 0) {
+		#if mobile
+
+		if(fireWaitTime != 0) {fireWaitTime = fireWaitTime - ( 1 / 60);}
+		if(playState.button1.pressed && fireWaitTime <= 0) {
 			gunShoot();
 			fireWaitTime = fireWaitTime + (1 / (baseFirerate * firerateMultiplier));
 		}
+		if(!playState.button1.pressed && fireWaitTime < 0) {fireWaitTime = 0;}
+
+		#else
+
+		if(fireWaitTime != 0) {fireWaitTime = fireWaitTime - ( 1 / 60);}
+		if(FlxG.keys.pressed.SPACE && fireWaitTime <= 0) {
+			gunShoot();
+			fireWaitTime = fireWaitTime + (1 / (baseFirerate * firerateMultiplier));
+		}
+		if(!FlxG.keys.pressed.SPACE && fireWaitTime < 0) {fireWaitTime = 0;}
+
+		#end
 
 		super.update(elapsed);
 	}
@@ -57,12 +72,11 @@ class Player extends FlxSprite {
 		var button1 = playState.button1;
 		var button2 = playState.button2;
 
-		if(button1.pressed) {}
-		else {
+		if(!button1.pressed) {
 			angle = analog.getAngle();
-			var p=FlxAngle.getCartesianCoords(50, angle);
-			aim.x=p.x;
-			aim.y=p.y;
+			var p = FlxAngle.getCartesianCoords(50, angle);
+			aim.x = p.x;
+			aim.y = p.y;
 		}
 		
 		if(Math.pow(analog.acceleration.x, 2) + Math.pow(analog.acceleration.y, 2) > 441) {
@@ -72,7 +86,7 @@ class Player extends FlxSprite {
 	}
 
 	public function gunShoot():Void {
-		var bullet = new Bullet(x, y, angle);
+		var bullet = new Bullet(x - 5, y - 16, angle);
 		playState.add(bullet);
 	}
 
