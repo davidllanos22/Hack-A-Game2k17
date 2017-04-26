@@ -60,8 +60,9 @@ class Player extends FlxSprite {
 		if(button1.pressed) {}
 		else {
 			angle = analog.getAngle();
-			flixel.math.FlxPoint;
-			aim.super(flixel.math.FlxAngle());
+			var p=FlxAngle.getCartesianCoords(50, angle);
+			aim.x=p.x;
+			aim.y=p.y;
 		}
 		
 		if(Math.pow(analog.acceleration.x, 2) + Math.pow(analog.acceleration.y, 2) > 441) {

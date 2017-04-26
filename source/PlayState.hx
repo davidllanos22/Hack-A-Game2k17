@@ -20,7 +20,7 @@ class PlayState extends FlxState{
 	public var zombis:FlxSpriteGroup;
 	public var obstacles:FlxSpriteGroup;
 	public var bullets:FlxSpriteGroup;
-	public var family:FlxSpriteGroup;
+	public var family:Family;
 	public var analog:FlxAnalog;
 	public var button1:Button;
 	public var button2:Button;
@@ -33,6 +33,11 @@ class PlayState extends FlxState{
 		analog = new FlxAnalog(60, 180, 50, 0);
 		button1 = new Button(20, 20, 10);
 		button2 = new Button(60, 60, 10);
+		zombis = new FlxSpriteGroup();
+		obstacles = new FlxSpriteGroup();
+		
+		bullets = new FlxSpriteGroup();
+		family = new Family(0,0,10,1);
 		add(analog);
 		add(button1);
 		add(button2);
@@ -44,6 +49,34 @@ class PlayState extends FlxState{
 		trace(analog.acceleration);
 
 		super.update(elapsed);
+
+		for(o in obstacles){
+			for(b in bullets){
+				if(FlxG.pixelPerfectOverlap(o,b)){
+					b.kill();
+					bullets.remove(b);
+				}
+			}
+		}
+
+		for(z in zombis){
+			for(b in bullets){
+				if(FlxG.pixelPerfectOverlap(b,z)){
+					hitBulletZombi(b,z);
+					break;
+				}
+			}
+		}
+
+		for(z in zombis){
+			for(o in obstacles){
+				if(FlxG.pixelPerfectOverlap(o,z)){
+					hitObstacleZombie(o,z);
+					break;
+				}
+			}
+		}
+
 		FlxG.pixelPerfectOverlap(bullets,zombis,hitBulletZombi);
 		FlxG.pixelPerfectOverlap(obstacles,zombis,hitObstacleZombi);
 		/*t += 0.1;
@@ -52,7 +85,7 @@ class PlayState extends FlxState{
 		text.setPosition(position.x, position.y + Math.cos(t) * 10);*/
 	}
 
-	private function hitBulletZombi(b:Bullet,z:Zombie){
+	private function hitBulletZombie(b:Bullet,z:Zombie){
 		bullets.remove(b);
 		b.kill();
 
@@ -63,7 +96,7 @@ class PlayState extends FlxState{
 		}
 	}
 
-	private function hitObstacleZombi(o:Obstacle,z:Zombie){
+	private function hitObstacleZombie(o:Obstacle,z:Zombie){
 		o.getHit(z.damage);
 		if(o.life<=0){
 			obstacles.remove(o);

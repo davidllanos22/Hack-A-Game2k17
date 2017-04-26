@@ -1,5 +1,6 @@
 package;
 import flixel.math.FlxMath;
+import flixel.FlxSprite;
 
 class Family extends FlxSprite{
 	public var rad:Float;
@@ -16,12 +17,8 @@ class Family extends FlxSprite{
 
 	}
 
-	public function isHit(enemy:FlxSprite):Void{
-		var d = FlxMath.distanceBetween(this, zombie);
-		if d<=r{
-			life -= 10;
-			zombie.kill();
-		}
+	public function getHit(damage:Int):Void{
+		life-=damage;
 	}
 
 
