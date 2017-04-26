@@ -30,8 +30,8 @@ class PlayState extends FlxState{
 	public var bars:FlxSpriteGroup;
 	public var family:Family;
 	public var analog:FlxAnalog;
-	public var button1:Button;
-	public var button2:Button;
+	public var button1:FlxButton;
+	public var button2:FlxButton;
 	public var waveNumber:Int;
 	public var zombiesLeft:Int;
 	public var announcementText:FlxText;
@@ -47,8 +47,12 @@ class PlayState extends FlxState{
 		super.create();
 
 		analog = new FlxAnalog(60, FlxG.height - 60, 50, 0);
-		button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20, this);
-		button2 = new Button(FlxG.width - 50, FlxG.height - 90, 20, this);
+		//button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20, this);
+		button1 = new FlxButton(FlxG.width - 90, FlxG.height - 50);
+		button1.setSize(50,50);
+		//button2 = new Button(FlxG.width - 50, FlxG.height - 90, 20, this);
+		button2 = new FlxButton(FlxG.width - 50, FlxG.height - 90);
+		button2.setSize(50,50);
 		inventory = new Inventory();
 
 		analog.scrollFactor.set(0,0);
