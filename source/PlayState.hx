@@ -352,6 +352,7 @@ class PlayState extends FlxState{
 	}
 
 	public function placeSW() {
+		trace("MAL");
 		putObject = true;
 		button1.text = "Place";
 		button1.active = true;
@@ -360,6 +361,7 @@ class PlayState extends FlxState{
  	}
 
  	public function placeWB() {
+ 		trace("BIEN");
 		putObject = true;
 		button1.text = "Place";
 		button1.active = true;
@@ -382,12 +384,10 @@ class PlayState extends FlxState{
 			if(el == Item.STONE_WALL) {
 				life = 400;
             	dmg = 0;
-			}
-			if(el == Item.WOOD_BARRICADE) {
+			}else if(el == Item.WOOD_BARRICADE) {
 				life = 200;
             	dmg = 25;
-			}
-			if(el == Item.WOOD_WALL) {
+			}else if(el == Item.WOOD_WALL) {
 				life = 300;
             	dmg = 0;
 			}

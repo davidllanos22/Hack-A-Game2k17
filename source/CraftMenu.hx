@@ -138,14 +138,6 @@ class CraftMenu extends FlxSubState{
 		sB2.alpha = 0;
 		sB3.alpha = 0;
 
-		inventory.addItem(Item.WOOD);
-		inventory.addItem(Item.WOOD);
-		inventory.addItem(Item.WOOD);
-		inventory.addItem(Item.WOOD);
-		inventory.addItem(Item.WOOD);
-		inventory.addItem(Item.WOOD);
-		inventory.addItem(Item.WOOD);
-		inventory.addItem(Item.WOOD);
 		//sB1.scale.x = sB1.scale.y = 1/4;
 	}
 
@@ -293,13 +285,13 @@ class CraftMenu extends FlxSubState{
 	}
 
 	public function place():Void {
-		if(sB1.active) {
+		if(textCraft1.color == FlxColor.RED) {
 			placeSW();
 		}
-		else if(sB2.active) {
+		else if(textCraft2.color == FlxColor.RED) {
 			placeWB();
 		}
-		else if(sB3.active) {
+		else if(textCraft3.color == FlxColor.RED) {
 			placeWW();
 		}
 	}
