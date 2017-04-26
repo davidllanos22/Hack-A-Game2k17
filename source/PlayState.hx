@@ -12,6 +12,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.FlxCamera;
 import flixel.ui.FlxAnalog;
 import flixel.util.FlxTimer;
+import flixel.math.FlxRandom;
 
 class PlayState extends FlxState{
 	public var text:FlxText;
@@ -120,34 +121,29 @@ class PlayState extends FlxState{
 		}
 	}*/
 
-	/*private function spawnZombie(x:Float,y:Float):Void{
-		var x = FlxG.width/2;
-		var y = FlxG.height/2;
-
-		var timer = new FlxTimer().start(t, function myCallback(Timer:FlxTimer):Void{
+	
 
 	//Fórmula Zombies normales: (sin(x) + x) · sqrt(x)
-	private function spawnZombie(x:Float,y:Float):Void{
+	private function spawnZombie(x:Float,y:Float,c1:Float,c2:Float):Void{
 		var x = FlxG.width/2;
 		var y = FlxG.height/2;
 
-		timer = new FlxTimer().start(2, function myCallback(Timer:FlxTimer):Void{
+		var timer = new FlxTimer().start(2, function myCallback(Timer:FlxTimer):Void{
 
 			var random = new FlxRandom();
 			var op = random.int(0, 3);
+			
 			switch op{
-				case 0: obstacleGroup.add(new Zombie(  -(x+c1)   ,   -(y+c2) + random.float(0,1)*(2*(y+c2))    ));
-				case 1: obstacleGroup.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))    ,   y+c2   ));
-				case 2: obstacleGroup.add(new Zombie(    x+c1    ,   -(y+c2) + random.float(0,1)*(2*(y+c2))    ));
-				case 3: obstacleGroup.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))   ,   -(y+c2)    ));
+				case 0: zombis.add(new Zombie(  -(x+c1)   ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this , 10, 10, 10, 10  ));
+				case 1: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))    ,   y+c2, this , 10 , 10 , 10 , 10  ));
+				case 2: zombis.add(new Zombie(    x+c1    ,   -(y+c2) + random.float(0,1)*(2*(y+c2)), this, 10, 10, 10 ,10 ));
+				case 3: zombis.add(new Zombie(  -(x+c1) + random.float(0,1)*(2*(x+c1))   ,   -(y+c2),  this,  10, 10, 10 , 10	));
 			}
 			
 
-		}, 0);
-	}*/
-
-		}, (Math.sin(waveNumber) + waveNumber)*Math.sqrt(waveNumber));
+		}, Math.round((Math.sin(waveNumber) + waveNumber)*Math.sqrt(waveNumber)));
 	}
+
 
 
 	private function spawnObject(x:Float,y:Float):Void{
