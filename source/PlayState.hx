@@ -136,6 +136,15 @@ class PlayState extends FlxState{
 			}
 		}
 
+		for(z in zombis){
+			if(FlxG.pixelPerfectOverlap(z, family)){
+				family.getHit(cast(z,Zombie).damage);
+				if(family.life<=0){
+					FlxG.switchState(new DefeatState(waveNumber));
+				}
+			}
+		}
+
 		if(zombiesLeft == 0) {
 			waveCompleted();
 		}
@@ -190,7 +199,7 @@ class PlayState extends FlxState{
 				player.getHit(z.damage);
 				z.attackWaitTime = z.attackCooldown;
 				if(player.life<=0){
-				FlxG.switchState(new DefeatState(waveNumber));
+					FlxG.switchState(new DefeatState(waveNumber));
 				}
 			}
 		}

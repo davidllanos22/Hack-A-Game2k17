@@ -31,6 +31,9 @@ class Player extends FlxSprite {
 
 	public function new(x:Float, y:Float, playState:PlayState, baseSpeed:Float, baseFirerate:Float) {
 		super(x, y);
+		setSize(8,8);
+		offset.set(12,12);
+		updateHitbox();
 
 		loadGraphic(AssetPaths.sprites__png, true, 32, 32);
         animation.add("player_walk", [8,9,8,10], 8);
