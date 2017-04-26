@@ -73,4 +73,5 @@ class PlayState extends FlxState{
 			FlxG.switchState(new DefeatState());
 		}
 	}
+
 }
