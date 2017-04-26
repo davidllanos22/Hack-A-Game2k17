@@ -117,15 +117,15 @@ class PlayState extends FlxState{
 			obstacles.remove(o);
 			o.kill();
 		}
-		if(Type.getClass(z).getName()=="ZombieCreeper"){
+		/*if(Type.getClass(z).getName()=="ZombieCreeper"){
 			hitObstacleCreeper(cast(z,ZombieCreeper));
-		}else{
+		}else{*/
 			z.getHit(o.damage);
 			if(z.life<=0){
 				zombis.remove(z);
 				z.kill();
 			}
-		}
+		//}
 	}
 
 	/*private function hitPlayerZombi(z:Zombie):Void{
