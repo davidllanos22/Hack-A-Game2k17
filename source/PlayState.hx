@@ -132,9 +132,9 @@ class PlayState extends FlxState{
 	override public function update(elapsed:Float):Void{
 		super.update(elapsed);
 
-		FlxG.camera.maxScrollX = 1080;
+		FlxG.camera.maxScrollX = 640;
 		FlxG.camera.minScrollX = 0;
-		FlxG.camera.maxScrollY = 720;
+		FlxG.camera.maxScrollY = 480;
 		FlxG.camera.minScrollY = 0;
 
 		for(o in obstacles){
@@ -152,7 +152,7 @@ class PlayState extends FlxState{
 					hitBulletZombie(cast(b,Bullet),cast(z,Zombie));
 					break;
 				}
-				if(b.x<0 || 1080<b.x || b.y<0 || 720<b.y){
+				if(b.x<0 || 640<b.x || b.y<0 || 480<b.y){
 					b.kill();
 					bullets.remove(b);
 				}
@@ -161,7 +161,7 @@ class PlayState extends FlxState{
 
 		for(z in zombis){
 			for(o in obstacles){
-				if(FlxMath.distanceBetween(z,o) < 6){
+				if(FlxMath.distanceBetween(z,o) < 10){
 					hitObstacleZombie(cast(o,Obstacle),cast(z,Zombie));
 					break;
 				}
@@ -254,10 +254,10 @@ class PlayState extends FlxState{
 			var op = random.int(0, 3);
 
 			switch op{
-				case 0: zombis.add(new Zombie(  -(c1)   ,   -c2 + random.float(0,1)*((720+ (2*c2))), this , 100, 10, 128, 10, 60));
-				case 1: zombis.add(new Zombie(  -(c1) + random.float(0,1)*((1080+ (2*c1)))    ,   -c2, this , 100 , 10 , 128 , 10, 60));
-				case 2: zombis.add(new Zombie(1080+c1, -c2 + random.float(0,1) * (720 + (2 * c2)), this, 100, 10, 128 ,10, 60));
-				case 3: zombis.add(new Zombie(  -(c1) + random.float(0,1)*((1080+(2*c1)))   ,   720+c2,  this,  100, 10, 128 , 10,	60));
+				case 0: zombis.add(new Zombie(  -(c1)   ,   -c2 + random.float(0,1)*((480+ (2*c2))), this , 100, 10, 128, 10, 60));
+				case 1: zombis.add(new Zombie(  -(c1) + random.float(0,1)*((640+ (2*c1)))    ,   -c2, this , 100 , 10 , 128 , 10, 60));
+				case 2: zombis.add(new Zombie(640+c1, -c2 + random.float(0,1) * (720 + (2 * c2)), this, 100, 10, 128 ,10, 60));
+				case 3: zombis.add(new Zombie(  -(c1) + random.float(0,1)*((640+(2*c1)))   ,   480+c2,  this,  100, 10, 128 , 10,	60));
 			}
 
 		}, Math.round((Math.sin(waveNumber) + waveNumber)*Math.sqrt(waveNumber)));
