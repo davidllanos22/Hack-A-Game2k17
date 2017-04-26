@@ -1,6 +1,8 @@
 package;
 
 import Math;
+import flixel.FlxSprite;
+import flixel.util.FlxColor;
 
 class Player extends FlxSprite {
 	
@@ -44,7 +46,7 @@ class Player extends FlxSprite {
 	}
 
 	public function movement():Void {
-		var playerAnalog = playState.analog;
+		var analog = playState.analog;
 		var button1 = playState.button1;
 		var button2 = playState.button2;
 
@@ -58,7 +60,7 @@ class Player extends FlxSprite {
 	}
 
 	public function gunShoot():Void {
-		playState.playerGunShoot();
+		//playState.playerGunShoot();
 	}
 
 }
