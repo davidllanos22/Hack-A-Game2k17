@@ -41,12 +41,14 @@ class PlayState extends FlxState{
 
 	private static inline var SPEED:Float = 2;
 
+	public var debugText:FlxText;
+
 	override public function create():Void{
 		super.create();
 
 		analog = new FlxAnalog(60, FlxG.height - 60, 50, 0);
-		button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20);
-		button2 = new Button(FlxG.width - 50, FlxG.height - 90, 20);
+		button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20, this);
+		button2 = new Button(FlxG.width - 50, FlxG.height - 90, 20, this);
 		inventory = new Inventory();
 
 		analog.scrollFactor.set(0,0);
@@ -64,13 +66,16 @@ class PlayState extends FlxState{
 		// analog.scale.x = 0.5;
 		// analog.scale.y = 0.5;
 
+		debugText = new FlxText(0, 20, 0, "Debug", 8);
+		debugText.scrollFactor.set(0, 0);
+
 		zombis = new FlxSpriteGroup();
 		obstacles = new FlxSpriteGroup();
 		bullets = new FlxSpriteGroup();
 		bars = new FlxSpriteGroup();
 
 		family = new Family(0, 0, 10, 1);
-		player = new Player(0, 0, this, 5, 5);
+		player = new Player(0, 0, this, 2.5, 5);
 
 		add(new FlxSprite(0, 0, AssetPaths.bg__png));
 		
@@ -87,8 +92,9 @@ class PlayState extends FlxState{
 		add(player);
 		add(player.aim);
 		add(bars);
-		waveNumber = 1;
+		add(debugText);
 
+		waveNumber = 1;
 		startWave();
 
 		FlxG.camera.follow(player.aim, TOPDOWN, 1);

@@ -29,12 +29,15 @@ class Player extends FlxSprite {
 	public static inline var WIDTHBAR = 16;
 	public static inline var HEIGHBAR = 4;
 
+	private var moving = false;
+
 	public function new(x:Float, y:Float, playState:PlayState, baseSpeed:Float, baseFirerate:Float) {
 		super(x, y);
 
 		loadGraphic(AssetPaths.sprites__png, true, 32, 32);
+		animation.add("player_stand", [8], 8);
         animation.add("player_walk", [8,9,8,10], 8);
-        animation.play("player_walk");
+        animation.play("player_stand");
 
         setSize(12,12);
         offset.set(10,10);
@@ -136,6 +139,9 @@ class Player extends FlxSprite {
 		if(FlxG.collide(this,playState.obstacles)){
 			velocity.set(0,0);
 		}
+
+		if(moving) animation.play("player_walk");
+		else animation.play("player_walk");
 	}
 
 	public function gunShoot():Void {
