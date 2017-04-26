@@ -38,6 +38,7 @@ class PlayState extends FlxState{
 	public var greenBar:FlxBar;
 	public var yellowBar:FlxBar;
 	public var inventory:Inventory;
+	public var sub:CraftMenu;
 
 	private static inline var SPEED:Float = 2;
 
@@ -47,9 +48,8 @@ class PlayState extends FlxState{
 		super.create();
 
 		inventory = new Inventory();
-		var sub = new CraftMenu(inventory, this, FlxColor.GRAY);
-		openSubState(sub);
-
+		
+		
 		analog = new FlxAnalog(60, FlxG.height - 60, 50, 0);
 		//button1 = new Button(FlxG.width - 90, FlxG.height - 50, 20, this);
 		button1 = new FlxButton(FlxG.width - 90, FlxG.height - 50,"1");
@@ -111,6 +111,9 @@ class PlayState extends FlxState{
 
 		FlxG.camera.follow(player.aim, TOPDOWN, 1);
 		FlxG.camera.followLerp = 5 / FlxG.updateFramerate;
+
+		var sub = new CraftMenu(inventory, this, FlxColor.GRAY);
+
 	}
 
 	override public function update(elapsed:Float):Void{
@@ -275,15 +278,13 @@ class PlayState extends FlxState{
 		announcementText.screenCenter();
 		announcementText.scrollFactor.set(0, 0);
 		add(announcementText);
-		var timer1 = new FlxTimer().start(8, function myCallback(Timer:FlxTimer):Void {
+		var timer1 = new FlxTimer().start(5, function myCallback(Timer:FlxTimer):Void {
 			remove(announcementText);
-		}, 1);
-		var timer2 = new FlxTimer().start(10, function myCallback(Timer:FlxTimer):Void {
-			startWave();
+			openSubState(sub);
 		}, 1);
 	}
 
-	private function startWave():Void {
+	public function startWave():Void {
 		announcementText = new FlxText(0, 0, 0, "Wave " + Std.string(waveNumber), 16);
 		announcementText.screenCenter();
 		announcementText.scrollFactor.set(0, 0);

@@ -57,7 +57,9 @@ class CraftMenu extends FlxSubState{
 		FlxG.camera.y = 0;
 
 		csel = -1;
-
+	}
+	
+	override public function create():Void {
 		text1 = new FlxText(30,0,144,"Basic Items",10);
 		text1.color = FlxColor.BLUE;
 		text2 = new FlxText(174,0,144,"Craftables",10);
@@ -73,7 +75,6 @@ class CraftMenu extends FlxSubState{
 		sB1 = new FlxButton(174,27,"",select1);
 		sB2 = new FlxButton(174,51,"",select2);
 		sB3 = new FlxButton(174,75,"",select3);
-		
 		
 	 	textBasic1 = new FlxText(30, 27, 144, "Water x " + inventory.getQuantity(Item.WATER), 8); 
 		textBasic2 = new FlxText(30, 51, 144, "Wood x " + inventory.getQuantity(Item.WOOD), 8); 
@@ -136,12 +137,32 @@ class CraftMenu extends FlxSubState{
 		sB2.alpha = 0;
 		sB3.alpha = 0;
 
+		inventory.addItem(Item.WOOD);
+		inventory.addItem(Item.WOOD);
+		inventory.addItem(Item.WOOD);
+		inventory.addItem(Item.WOOD);
+		inventory.addItem(Item.WOOD);
+		inventory.addItem(Item.WOOD);
+		inventory.addItem(Item.WOOD);
+		inventory.addItem(Item.WOOD);
 		//sB1.scale.x = sB1.scale.y = 1/4;
 	}
-	
-	
+
 	override public function update(elapsed:Float):Void{
-		
+		super.update(elapsed);
+
+		textBasic1.text = "Water x " + inventory.getQuantity(Item.WATER);
+		textBasic2.text = "Wood x " + inventory.getQuantity(Item.WOOD); 
+		textBasic3.text = "Mud x " + inventory.getQuantity(Item.MUD); 
+		textBasic4.text = "Stone x " + inventory.getQuantity(Item.STONE); 
+		textBasic5.text = "Glass x " + inventory.getQuantity(Item.GLASS); 
+		textBasic6.text = "Alcohol x " + inventory.getQuantity(Item.ALCOHOL); 
+		textBasic7.text = "Rag x " + inventory.getQuantity(Item.RAG); 
+		textBasic8.text = "Coal x " + inventory.getQuantity(Item.COAL); 
+		textBasic9.text = "Gunpowder x " + inventory.getQuantity(Item.GUNPOWDER); 
+		textCraft1.text = "Stone Wall x " + inventory.getQuantity(Item.STONE_WALL);
+		textCraft2.text = "Barricade x " + inventory.getQuantity(Item.WOOD_BARRICADE);
+		textCraft3.text = "Wooden Wall x " + inventory.getQuantity(Item.WOOD_WALL);
 	}
 
 	public function craft():Void {
@@ -150,10 +171,13 @@ class CraftMenu extends FlxSubState{
 			case -1:
 			case 0: 
 				inventory.createItem(Item.STONE_WALL);
+				select1();
 			case 1:
 				inventory.createItem(Item.WOOD_BARRICADE);
+				select2();
 			case 2:
 				inventory.createItem(Item.WOOD_WALL);
+				select3();
 		}
 	}
 
@@ -166,7 +190,8 @@ class CraftMenu extends FlxSubState{
 	}
 
 	public function newtWave():Void {
-		closeSubState();
+		playState.startWave();
+		close();
 
 	}
 
@@ -176,22 +201,6 @@ class CraftMenu extends FlxSubState{
 		textCraft3.color = FlxColor.WHITE;
 		csel = 0;
 
-		if (inventory.canCreate(Item.WOOD_WALL)){
-			craftButton.alpha = 1;
-			craftButton.active = true;
-		}else{
-			craftButton.alpha = 0.3;
-			craftButton.active = false;
-		}
-
-	}
-
-	public function select2():Void{
-		textCraft2.color = FlxColor.RED;
-		textCraft1.color = FlxColor.WHITE;
-		textCraft3.color = FlxColor.WHITE;
-		csel = 1;
-
 		if (inventory.canCreate(Item.STONE_WALL)){
 			craftButton.alpha = 1;
 			craftButton.active = true;
@@ -200,13 +209,24 @@ class CraftMenu extends FlxSubState{
 			craftButton.active = false;
 		}
 
+		if(inventory.getQuantity(Item.STONE_WALL) > 0) {
+			placeButton.alpha = 1;
+			placeButton.active = true;
+		}
+		else{
+			placeButton.alpha = 0.3;
+			placeButton.active = false;
+		}
+		equipButton.alpha = 0.3;
+		equipButton.active = false;
 	}
 
-	public function select3():Void{
-		textCraft3.color = FlxColor.RED;
+	public function select2():Void{
+		textCraft2.color = FlxColor.RED;
 		textCraft1.color = FlxColor.WHITE;
-		textCraft2.color = FlxColor.WHITE;
-		csel = 2; 
+		textCraft3.color = FlxColor.WHITE;
+		csel = 1;
+
 		if (inventory.canCreate(Item.WOOD_BARRICADE)){
 			craftButton.alpha = 1;
 			craftButton.active = true;
@@ -215,6 +235,41 @@ class CraftMenu extends FlxSubState{
 			craftButton.active = false;
 		}
 
+		if(inventory.getQuantity(Item.WOOD_BARRICADE) > 0) {
+			placeButton.alpha = 1;
+			placeButton.active = true;
+		}
+		else{
+			placeButton.alpha = 0.3;
+			placeButton.active = false;
+		}
+		equipButton.alpha = 0.3;
+		equipButton.active = false;
+	}
+
+	public function select3():Void{
+		textCraft3.color = FlxColor.RED;
+		textCraft1.color = FlxColor.WHITE;
+		textCraft2.color = FlxColor.WHITE;
+		csel = 2; 
+		if (inventory.canCreate(Item.WOOD_WALL)){
+			craftButton.alpha = 1;
+			craftButton.active = true;
+		}else{
+			craftButton.alpha = 0.3;
+			craftButton.active = false;
+		}
+
+		if(inventory.getQuantity(Item.WOOD_WALL) > 0) {
+			placeButton.alpha = 1;
+			placeButton.active = true;
+		}
+		else{
+			placeButton.alpha = 0.3;
+			placeButton.active = false;
+		}
+		equipButton.alpha = 0.3;
+		equipButton.active = false;
 	}
 
 }
