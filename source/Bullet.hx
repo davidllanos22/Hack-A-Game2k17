@@ -6,8 +6,9 @@ import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
 import Math;
 
-class Bullets extends FlxSprite{
+class Bullet extends FlxSprite{
 	public var _speed:Float = 400;
+	public var _dmg:Float = 1;
 	public var _rAngle:Float;
 
 	public function new (x: Float, y: Float, angle: Float){
