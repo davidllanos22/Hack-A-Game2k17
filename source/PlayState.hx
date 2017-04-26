@@ -85,7 +85,6 @@ class PlayState extends FlxState{
 		trace("cancreate: " + inventory.canCreate(Item.WOOD_WALL));
 
 		inventory.createItem(Item.WOOD_WALL);
-
 		debugText = new FlxText(0, 20, 0, "Debug", 8);
 		debugText.scrollFactor.set(0, 0);
 
@@ -102,8 +101,34 @@ class PlayState extends FlxState{
 
 
 		add(new FlxSprite(0, 0, AssetPaths.bg__png));
+
+		//Up
+		obstacles.add(new Obstacle(80,27,16,5,10,0));
+		obstacles.add(new Obstacle(96,27,16,5,10,0));
+		obstacles.add(new Obstacle(112,27,16,5,10,0));
+		obstacles.add(new Obstacle(128,27,16,5,10,0));
+		obstacles.add(new Obstacle(144,27,16,5,10,0));
+		obstacles.add(new Obstacle(160,27,16,5,10,0));
+		obstacles.add(new Obstacle(176,27,16,5,10,0));
 		
-		obstacles.add(new Obstacle(100,100,50,50,10,0));
+		//Left
+		obstacles.add(new Obstacle(80,32,5,16,10,0));
+		obstacles.add(new Obstacle(80,48,5,16,10,0));
+		obstacles.add(new Obstacle(80,64,5,16,10,0));
+		obstacles.add(new Obstacle(80,80,5,16,10,0));
+
+		//Down
+		obstacles.add(new Obstacle(80,96,20,5,10,0));
+		obstacles.add(new Obstacle(96,96,16,5,10,0));
+		obstacles.add(new Obstacle(112,96,16,5,10,0));
+		obstacles.add(new Obstacle(128,96,16,5,10,0));
+		obstacles.add(new Obstacle(144,96,16,5,10,0));
+		obstacles.add(new Obstacle(160,96,16,5,10,0));
+		obstacles.add(new Obstacle(176,96,16,5,10,0));
+
+		//Right
+		
+
 
 		add(zombis);
 		add(obstacles);
@@ -159,7 +184,7 @@ class PlayState extends FlxState{
 
 		for(z in zombis){
 			for(o in obstacles){
-				if(FlxMath.distanceBetween(z,o) < 55){
+				if(FlxMath.distanceBetween(z,o) < 6){
 					hitObstacleZombie(cast(o,Obstacle),cast(z,Zombie));
 					break;
 				}
