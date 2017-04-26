@@ -26,7 +26,7 @@ class Zombie extends FlxSprite{
 
     public static inline var WIDTHBAR = 16;
     public static inline var HEIGHBAR = 4;
-    
+
 	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float,damage:Int, attackCooldown:Int) {
         super(x, y);
         trace("spawn");
@@ -62,8 +62,7 @@ class Zombie extends FlxSprite{
         super.update(elapsed);
         this.dPlayer = FlxMath.distanceBetween(this,player);
         movement();
-
-        //if(attackWaitTime > 0) {attackWaitTime = attackWaitTime - 1;}
+        if(attackWaitTime > 0) {attackWaitTime = attackWaitTime - 1;}
 
     }
     

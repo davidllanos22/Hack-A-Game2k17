@@ -151,6 +151,7 @@ class PlayState extends FlxState{
 		if(z.life<=0){
 			zombis.remove(z);
 			z.kill();
+
 		}
 	}
 
@@ -209,6 +210,9 @@ class PlayState extends FlxState{
 			}
 
 		}, Math.round((Math.sin(waveNumber) + waveNumber)*Math.sqrt(waveNumber)));
+
+		zombiesLeft = Math.round((Math.sin(waveNumber) + waveNumber)*Math.sqrt(waveNumber));
+
 	}
 
 
@@ -237,6 +241,7 @@ class PlayState extends FlxState{
 
 	private function waveCompleted():Void {
 		waveNumber = waveNumber + 1;
+		zombiesLeft = -1;
 		announcementText = new FlxText(0, 0, 0, "Wave Completed", 16);
 		announcementText.screenCenter();
 		announcementText.scrollFactor.set(0, 0);
