@@ -87,7 +87,7 @@ class PlayState extends FlxState{
 		bullets = new FlxSpriteGroup();
 		bars = new FlxSpriteGroup();
 
-		family = new Family(0, 0, 10, 1);
+		family = new Family(125, 50, 10, 1);
 		player = new Player(0, 0, this, 2.5, 5);
 
 		add(new FlxSprite(0, 0, AssetPaths.bg__png));

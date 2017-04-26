@@ -96,10 +96,10 @@ class Player extends FlxSprite {
 
 		#end
 
-		greenBar.x = x + 8;
-		greenBar.y = y - 6;
-		yellowBar.x = x + 8;
-		yellowBar.y = y - 6;
+		greenBar.x = x;
+		greenBar.y = y -12;
+		yellowBar.x = x;
+		yellowBar.y = y - 12;
 
 		if(greenBar.value < yellowBar.value){
 			yellowBar.value-=0.1;

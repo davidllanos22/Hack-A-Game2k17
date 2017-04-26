@@ -32,7 +32,6 @@ class Zombie extends FlxSprite{
 	public function new(x:Float, y:Float, ps:PlayState, life:Float, speed:Float, tolerance:Float,damage:Int, attackCooldown:Int) {
         super(x, y);
         trace("spawn");
-        setSize(32, 32);
         this.ps = ps;
         this.life = life;
         this.speed = speed;
@@ -46,6 +45,9 @@ class Zombie extends FlxSprite{
         loadGraphic(AssetPaths.sprites__png, true, 32, 32);
         animation.add("zombie_walk", [0,1,0,2], 8);
         animation.play("zombie_walk");
+
+        setSize(12, 12);
+        offset.set(10,10);
 
         xx = speed * (- x / Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
         yy = speed * (- y / Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
@@ -75,19 +77,13 @@ class Zombie extends FlxSprite{
     }
 
     private function movement():Void{
-        
-        var px = player.x;
-        var py = player.y;
+
         var zx = this.x;
         var zy = this.y;
 
         if(dPlayer<tolerance){
-            xx = speed*( (px - zx)/ Math.sqrt( Math.pow(px - zx,2) + Math.pow(py - zy,2) ) );
-            yy = speed*( (py - zy)/ Math.sqrt( Math.pow(px - zx,2) + Math.pow(py - zy,2) ) );
             target = player;
         }else{
-            xx = speed * (- x / Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-            yy = speed * (- y / Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
             target = ps.family;
         }
 
@@ -95,11 +91,13 @@ class Zombie extends FlxSprite{
         if(FlxG.collide(this,ps.obstacles)){
             velocity.set(0,0);
         }else{
+            xx = speed * ( (target.x-zx) / Math.sqrt(Math.pow((target.x-zx), 2) + Math.pow((target.y-zy), 2)));
+            yy = speed * ( (target.y-zy) / Math.sqrt(Math.pow((target.x-zx), 2) + Math.pow((target.y-zy), 2)));
             velocity = new FlxPoint(xx,yy);
         }
 
-        greenBar.x = this.x + 8;
-        greenBar.y = this .y - 6;
+        greenBar.x = this.x;
+        greenBar.y = this .y - 12;
     }
 
 }
