@@ -20,6 +20,7 @@ enum Item{
 class Inventory {
 
 	public var items:Map<Item,Int>;
+	public var recipes:Map<Item,Array<Item>>;
 
 	public function new(){
 		items = [
@@ -36,18 +37,39 @@ class Inventory {
 		Item.WOOD_WALL=>0,
 		Item.STONE_WALL=>0,
 		Item.WOOD_BARRICADE=>0,
-    ];
+    	];
+
+    	recipes = [
+    	Item.WOOD_WALL => [Item.WOOD,Item.WOOD],
+    	Item.STONE_WALL => [Item.MUD,Item.MUD,Item.MUD,Item.MUD,Item.STONE,Item.STONE,Item.STONE,Item.STONE],
+    	Item.WOOD_BARRICADE => [Item.WOOD,Item.WOOD, Item.WOOD]
+    	];
+
 	}
 
 	public function addItem(item:Item){
 		items[item]+=1;
 	}
 
-	/*public function createItem(it:Item){
-		switch it {
-			case Item.WOOD_WALL:
-				items[Item.WOOD]-=1;
+	public function createItem(it:Item){
+		for(i in recipes[it]){
+			items[i] -= 1;
 		}
-	}*/
+		items[it] += 1;
+	}
+
+	public function canCreate(it:Item):Bool{
+		var temp:Map<Item,Int>;
+		temp=new Map<Item,Int>();
+		for(i in recipes[it]){
+			temp[i]++;
+		}
+		for(key in temp.keys()){
+			if(temp[key]>items[key]){
+				return false;
+			}
+		}
+		return true;
+	}
 	
 }
